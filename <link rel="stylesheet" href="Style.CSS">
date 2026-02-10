@@ -1,10 +1,13 @@
+/* ---------- Base styles ---------- */
 body {
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
   background: #ffffff;
   color: #111;
+  line-height: 1.6;
 }
 
+/* ---------- Header / Top ---------- */
 .top {
   background: #9aa9ff;
   padding: 16px;
@@ -13,9 +16,15 @@ body {
 .top h1 {
   color: white;
   font-size: 40px;
-  margin: 0 0 10px;
+  margin: 0 0 10px 0;
 }
 
+/* ---------- Main content ---------- */
+main {
+  padding: 16px;
+}
+
+/* ---------- Links (assignment requirement) ---------- */
 a {
   color: green;
   text-decoration: none;
@@ -26,10 +35,7 @@ a:hover {
   text-decoration: underline;
 }
 
-main {
-  padding: 16px;
-}
-
+/* ---------- Images ---------- */
 img {
   max-width: 100%;
   display: block;
@@ -37,21 +43,41 @@ img {
   border: 5px solid white;
 }
 
+/* ---------- Headings ---------- */
+h1 {
+  margin-bottom: 10px;
+}
+
 h2 {
   color: #1a40ff;
   font-size: 34px;
-  margin-bottom: 6px;
+  margin: 20px 0 6px;
 }
 
+h3, h4, h5 {
+  margin-top: 20px;
+}
+
+/* ---------- Lists ---------- */
+ul, ol {
+  margin-left: 28px;
+}
+
+/* ---------- Utility classes ---------- */
 .orange {
   color: orange;
   font-weight: bold;
 }
 
-ul, ol {
-  margin-left: 28px;
+.red {
+  color: #d60000;
 }
 
+.blue {
+  color: #1a40ff;
+}
+
+/* ---------- Yellow section ---------- */
 .yellow {
   background: #fff200;
   margin: 18px 0;
@@ -62,6 +88,7 @@ ul, ol {
 .yellow h5 {
   padding: 6px 10px;
   text-decoration: underline;
+  margin: 0;
 }
 
 .yellow p {
@@ -69,10 +96,7 @@ ul, ol {
   margin: 0;
 }
 
-.red {
-  color: #d60000;
-}
-
+/* ---------- Green section ---------- */
 .green {
   background: #b6f0b6;
   margin: 18px 0;
@@ -94,8 +118,4 @@ ul, ol {
 
 .green ol {
   padding-bottom: 10px;
-}
-
-.blue {
-  color: #1a40ff;
 }
