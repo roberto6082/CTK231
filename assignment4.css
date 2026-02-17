@@ -1,34 +1,28 @@
-/* assignment4.css */
 
-/* ============================= */
-/*  ALL TEXT + BACKGROUND IMAGE */
-/* ============================= */
 
 body {
   margin: 0;
   font-family: Helvetica, Arial, sans-serif;
   line-height: 1.6;
 
-  /* Make sure bg.jpg is in the SAME folder */
+ 
   background: url("bg.jpg") repeat;
 }
 
 
-/* ============================= */
-/*  HEADINGS STYLING             */
-/* ============================= */
+HEADINGS STYLING         
+
 
 h1, h2, h3, h4, h5, h6 {
   color: orange;
   font-style: italic;
-  font-weight: normal;   /* not bold */
+  font-weight: normal;   
   margin: 16px 0 10px 0;
 }
 
 
-/* ============================= */
-/*  CENTER + JUSTIFY CLASSES     */
-/* ============================= */
+CENTER + JUSTIFY CLASSES   
+
 
 .center {
   text-align: center;
@@ -39,9 +33,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-/* ============================= */
-/*  IMAGE STYLING                */
-/* ============================= */
+ IMAGE STYLING            
+
 
 img {
   display: block;
@@ -49,15 +42,15 @@ img {
   height: auto;
   margin: 15px 0;
 
-  border: 12px solid black;   /* heavy black border */
-  padding: 12px;              /* space between border and image */
-  background-color: yellow;   /* makes that space yellow */
+  border: 12px solid black;   
+  padding: 12px;              
+  background-color: yellow;   
 }
 
 
-/* ============================= */
-/*  NAVIGATION CLEANUP           */
-/* ============================= */
+
+
+
 
 nav ul {
   list-style: none;
@@ -73,3 +66,4 @@ nav li {
 nav a {
   text-decoration: none;
 }
+
