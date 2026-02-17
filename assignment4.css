@@ -1,28 +1,15 @@
-
-
 body {
   margin: 0;
   font-family: Helvetica, Arial, sans-serif;
   line-height: 1.6;
-
- 
   background: url("bg.jpg") repeat;
 }
-
-
-HEADINGS STYLING         
-
 
 h1, h2, h3, h4, h5, h6 {
   color: orange;
   font-style: italic;
-  font-weight: normal;   
-  margin: 16px 0 10px 0;
+  font-weight: normal;
 }
-
-
-CENTER + JUSTIFY CLASSES   
-
 
 .center {
   text-align: center;
@@ -32,25 +19,15 @@ CENTER + JUSTIFY CLASSES
   text-align: justify;
 }
 
-
- IMAGE STYLING            
-
-
 img {
   display: block;
   max-width: 100%;
   height: auto;
   margin: 15px 0;
-
-  border: 12px solid black;   
-  padding: 12px;              
-  background-color: yellow;   
+  border: 12px solid black;
+  padding: 12px;
+  background-color: yellow;
 }
-
-
-
-
-
 
 nav ul {
   list-style: none;
@@ -66,4 +43,5 @@ nav li {
 nav a {
   text-decoration: none;
 }
+
 
