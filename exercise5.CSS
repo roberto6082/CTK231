@@ -2,16 +2,20 @@ nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    border: 1px solid black;
     width: 200px;
-    background-color: red;
+}
+
+nav li {
+    margin-bottom: 5px;
 }
 
 nav li a {
     display: block;
-    padding: 15px;
+    background-color: red;
     color: white;
+    padding: 15px;
     text-decoration: none;
+    border: 1px solid black;
 }
 
 nav li a:hover {
