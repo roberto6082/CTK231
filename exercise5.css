@@ -1,23 +1,26 @@
 nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 10px;
 }
 
 nav li {
-    display: inline-block;
-    margin-right: 10px;
+  margin: 0;
+  padding: 0;
+  width: 150px;
 }
 
 nav li a {
-    display: block;
-    background-color: red;
-    color: white;
-    padding: 15px 25px;
-    text-decoration: none;
-    border: 1px solid black;
+  display: block;
+  padding: 10px;
+  border: 1px solid #000000;
+  background-color: #cc0000;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 nav li a:hover {
-    background-color: darkred;
+  background-color: #660000;
 }
