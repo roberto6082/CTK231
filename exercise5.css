@@ -12,13 +12,15 @@ nav li {
 }
 
 nav li a {
-  display: block;
-  padding: 12px 18px;
+  display: flex;
+  justify-content: center;   
+  align-items: center;       /* center text vertically */
+  width: 170px;              /* fixed equal width */
+  height: 45px;              /* fixed equal height */
   border: 1px solid #000;
   background-color: #cc0000;
   color: #fff;
   text-decoration: none;
-  white-space: nowrap;   
 }
 
 nav li a:hover {
