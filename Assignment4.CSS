@@ -1,0 +1,71 @@
+/* ===== Base: all text Helvetica/Arial + background image ===== */
+body {
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif; /* rubric */
+  color: #111;
+  line-height: 1.6;
+
+  /* background image rubric */
+  background-image: url("bg.jpg");
+  background-repeat: repeat;
+}
+
+/* ===== Layout ===== */
+.site-header, header {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 14px 16px;
+}
+
+.content, main {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px;
+  margin: 16px;
+}
+
+.site-footer, footer {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 16px;
+  margin: 16px;
+}
+
+/* ===== Headings: orange, italic, normal weight ===== */
+h1, h2, h3, h4, h5, h6 {
+  color: orange;
+  font-style: italic;
+  font-weight: normal; /* NOT bold */
+  background: transparent; /* keep clean */
+  margin: 16px 0 10px;
+}
+
+/* ===== Center + Justify paragraphs ===== */
+.center {
+  text-align: center;
+}
+
+.justify {
+  text-align: justify;
+}
+
+/* ===== Images: heavy black border + yellow between border and image ===== */
+img {
+  border: 10px solid black; /* heavy black border */
+  padding: 10px;            /* space between border and image */
+  background: yellow;       /* makes the space yellow */
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 12px 0;
+}
+
+/* ===== Nav ===== */
+.site-nav ul, nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  display: flex;
+  gap: 14px;
+}
+
+/* Optional: keep links readable */
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
