@@ -3,17 +3,17 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 15px;          /* THIS creates space between buttons */
+  gap: 15px;
 }
 
 nav li {
-  flex: 1;            /* makes them equal width */
+  flex: 1;
 }
 
 nav li a {
   display: block;
   text-align: center;
-  padding: 20px 0;
+  padding: 25px 0;   /* taller buttons */
   border: 1px solid #000;
   background-color: #cc0000;
   color: #fff;
