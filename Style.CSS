@@ -1,88 +1,122 @@
-/* ---------- Page background ---------- */
-body {
-  margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  background: #f4f6ff; /* soft blue-gray */
-  color: #111;
-  line-height: 1.6;
+/* ===== Base page ===== */
+body{
+  margin:0;
+  background:#fff;
+  color:#000;
+  font-family: "Times New Roman", Times, serif;
+  line-height:1.35;
 }
 
-/* ---------- Headings ---------- */
-h1 {
-  color: #2a2a8f;
-  margin-bottom: 10px;
+p, ul, ol{
+  margin: 10px 12px;
+  padding: 0;
 }
 
-h2 {
-  color: #1a40ff;
-  font-size: 34px;
-  margin: 24px 0 10px;
-  border-bottom: 3px solid #1a40ff;
-  padding-bottom: 4px;
+/* ===== Top blue header block (h1 + first two paragraphs) ===== */
+h1{
+  margin:0;
+  padding: 10px 12px 0 12px;
+  background:#9aa9ff;
+  color:#fff;
+  font-size: 42px;
+  font-weight: bold;
 }
 
-h3 {
-  color: #b30000;
+h1 + p{
+  margin:0;
+  padding: 6px 12px 0 12px;
+  background:#9aa9ff;
 }
 
-h4 {
-  color: #0a6a0a;
+h1 + p + p{
+  margin:0;
+  padding: 6px 12px 10px 12px;
+  background:#9aa9ff;
 }
 
-h5 {
-  color: #7a2cbf;
-}
-
-/* ---------- Content sections ---------- */
-p, ul, ol {
-  background: #ffffff;
-  padding: 12px 16px;
-  border-left: 6px solid #9aa9ff;
-  margin: 14px 0;
-  border-radius: 4px;
-}
-
-/* ---------- Lists ---------- */
-ul li {
-  color: #333;
-}
-
-ol li {
-  color: #444;
-}
-
-/* ---------- Links (assignment requirement stays intact) ---------- */
-a {
+/* ===== Link requirement ===== */
+a{
   color: green;
   text-decoration: none;
 }
-
-a:hover {
+a:hover{
   color: red;
   text-decoration: underline;
 }
 
-/* ---------- Image ---------- */
-img {
+/* ===== Image (no frame in example) ===== */
+img{
+  display:block;
   max-width: 100%;
-  display: block;
-  margin: 16px auto;
-  border: 6px solid #9aa9ff;
-  background: white;
-  padding: 4px;
+  height:auto;
+  margin: 12px auto;
+  border: none;
+  padding: 0;
+  background: transparent;
 }
 
-/* ---------- Utility classes (still usable) ---------- */
-.orange {
-  color: orange;
+/* ===== Section heading: The Fires of Pompeii ===== */
+h2{
+  margin: 20px 12px 6px 12px;
+  color:#1a40ff;
+  font-size: 28px;
+  font-weight: bold;
+  border: none;
+  padding: 0;
+}
+
+/* Lists look normal in the example */
+ul{ margin-left: 32px; }
+ol{ margin-left: 32px; }
+
+/* ===== Highlight sections ===== */
+
+/* Inferno = yellow bar heading + red paragraph */
+h3{
+  margin: 18px 0 0 0;
+  padding: 2px 12px;
+  background: yellow;
+  color:#000;
+  font-size: 20px;
   font-weight: bold;
 }
-
-.red {
-  color: #d60000;
+h3 + p{
+  color: red;
+  margin: 8px 12px 0 12px;
 }
 
-.blue {
-  color: #1a40ff;
+/* Father's Day = dark green bar heading (yellow text) + green paragraph */
+h4{
+  margin: 18px 0 0 0;
+  padding: 2px 12px;
+  background: #0b5a16;
+  color: yellow;
+  font-size: 18px;
+  font-weight: bold;
 }
+h4 + p{
+  background: #8fe28a;
+  padding: 10px 12px;
+  margin: 8px 12px 0 12px;
+}
+
+/* The Doctor's Daughter = yellow block heading + yellow paragraph */
+h5{
+  margin: 18px 0 0 0;
+  padding: 2px 12px;
+  background: yellow;
+  color: #d10000;
+  font-size: 18px;
+  font-weight: bold;
+}
+h5 + p{
+  background: yellow;
+  padding: 10px 12px;
+  margin: 0 12px 10px 12px;
+}
+
+/* ===== Utility classes used in the assignment ===== */
+.orange{ color: orange; font-weight: bold; }
+.red{ color: red; }
+.blue{ color: #1a40ff; font-weight: bold; }
 
