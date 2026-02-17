@@ -1,0 +1,90 @@
+/* ----- Base ----- */
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: #f4f6ff;
+  color: #111;
+}
+
+.content {
+  padding: 16px;
+}
+
+/* ----- Structural sections ----- */
+.site-header {
+  padding: 14px 16px;
+  border-bottom: 4px solid #9aa9ff;
+  background: #ffffff;
+}
+
+.site-footer {
+  padding: 12px 16px;
+  border-top: 4px solid #9aa9ff;
+  background: #ffffff;
+}
+
+/* ----- Nav ----- */
+.site-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  display: flex;
+  gap: 14px;
+}
+
+/* Links: red default, yellow hover, green visited */
+.site-nav a:link {
+  color: red;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: yellow;
+  text-decoration: underline;
+}
+
+.site-nav a:visited {
+  color: green;
+}
+
+/* ----- Headings: text color + background color for ALL headings ----- */
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff;
+  background: #1a40ff;
+  padding: 6px 10px;
+  margin: 16px 0 10px;
+  border-radius: 6px;
+}
+
+/* h1 spacing */
+.page-title {
+  margin: 0;
+}
+
+/* ----- div styled (requirement) ----- */
+.hero-box {
+  background: #ffffff;
+  border-left: 8px solid #9aa9ff;
+  padding: 12px;
+  margin: 14px 0;
+  border-radius: 6px;
+}
+
+/* image */
+.hero-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* ----- span styled (requirement) ----- */
+.label {
+  color: #1a40ff;
+  font-weight: bold;
+}
+
+/* paragraphs */
+p {
+  line-height: 1.6;
+}
