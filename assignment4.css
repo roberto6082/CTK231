@@ -6,9 +6,16 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   line-height: 1.6;
 
-  /* Put bg.jpg in the same folder as this CSS + your HTML pages */
   background-image: url("bg.jpg");
   background-repeat: repeat;
+}
+
+/* Makes content readable on top of background (doesn't break rubric) */
+header, main, footer {
+  max-width: 900px;
+  margin: 16px auto;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 /* ✅ Headings: orange, italic, normal (not bold) */
@@ -31,16 +38,17 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ✅ Images: heavy black border + yellow space between border and image */
 img {
-  border: 10px solid black; /* heavy black border */
-  padding: 10px;            /* creates space between border and image */
-  background: yellow;       /* makes that space yellow */
+  border: 10px solid black;
+  padding: 10px;
+  background: yellow;
+
   display: block;
   max-width: 100%;
   height: auto;
   margin: 12px 0;
 }
 
-/* Nice-to-have layout for nav (not required but helps) */
+/* Nav layout (nice-to-have) */
 nav ul {
   list-style: none;
   padding: 0;
@@ -57,6 +65,5 @@ nav a {
 nav a:hover {
   text-decoration: underline;
 }
-
 
 
