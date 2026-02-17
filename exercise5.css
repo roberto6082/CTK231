@@ -3,26 +3,24 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 12px;
 }
 
 nav li {
-  margin: 0;
-  padding: 0;
+  flex: 1;              /* makes all buttons equal width */
 }
 
 nav li a {
-  display: flex;
-  justify-content: center;   
-  align-items: center;       /* center text vertically */
-  width: 170px;              /* fixed equal width */
-  height: 45px;              /* fixed equal height */
+  display: block;
+  text-align: center;
+  padding: 20px 0;      /* makes buttons taller */
   border: 1px solid #000;
   background-color: #cc0000;
   color: #fff;
   text-decoration: none;
+  font-size: 18px;      /* makes text bigger */
 }
 
 nav li a:hover {
   background-color: #660000;
 }
+
