@@ -1,0 +1,62 @@
+/* assignment4.css */
+
+/* ✅ All text Helvetica/Arial + ✅ Background image */
+body {
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+
+  /* Put bg.jpg in the same folder as this CSS + your HTML pages */
+  background-image: url("bg.jpg");
+  background-repeat: repeat;
+}
+
+/* ✅ Headings: orange, italic, normal (not bold) */
+h1, h2, h3, h4, h5, h6 {
+  color: orange;
+  font-style: italic;
+  font-weight: normal;
+  margin: 16px 0 10px;
+}
+
+/* ✅ Center at least one paragraph */
+.center {
+  text-align: center;
+}
+
+/* ✅ Justify at least one paragraph */
+.justify {
+  text-align: justify;
+}
+
+/* ✅ Images: heavy black border + yellow space between border and image */
+img {
+  border: 10px solid black; /* heavy black border */
+  padding: 10px;            /* creates space between border and image */
+  background: yellow;       /* makes that space yellow */
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 12px 0;
+}
+
+/* Nice-to-have layout for nav (not required but helps) */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+
+
