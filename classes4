@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CTK - Classes (Assignment 4)</title>
+  <link rel="stylesheet" href="assignment4.css">
+</head>
+
+<body>
+
+<header>
+  <h1>CTK Course List</h1>
+
+  <nav>
+    <ul>
+      <li><a href="assignment4.html">Main</a></li>
+      <li><a href="requirements4.html">Requirements</a></li>
+      <li><a href="classes4.html">Classes</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="content">
+
+  <div class="hero-box">
+    <img src="classes.jpg" alt="Classes page image">
+  </div>
+
+  <h2>200 Level Classes</h2>
+
+  <p class="justify">
+    The 200-level courses introduce students to foundational concepts in digital arts,
+    audio production, programming, and web design.
+  </p>
+
+  <ul>
+    <li>201 – Basic Skills in the Digital Arts</li>
+    <li>202 – Foundations: Audio Theory</li>
+    <li>203 – Recording and Sampling</li>
+    <li>231 – Web Design and Development</li>
+  </ul>
+
+  <h2>300 Level Classes</h2>
+
+  <p class="center">
+    300-level courses focus on advanced creative development and production.
+  </p>
+
+  <ul>
+    <li>303 – Advanced Web Design</li>
+    <li>351 – Game Design I</li>
+    <li>377 – Motion Graphics</li>
+  </ul>
+
+</main>
+
+<footer>
+  <p>Assignment 4 - Roberto Hinojosa</p>
+</footer>
+
+</body>
+</html>
+
