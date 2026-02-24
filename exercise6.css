@@ -1,21 +1,25 @@
-
 body {
   margin: 0;
   background-color: #bfe6e6;
   font-family: Georgia, "Times New Roman", serif;
 }
 
-
 #wrapper {
   width: 1200px;
   margin: 1em auto;
-  padding: 0;
+
+
+  padding: 30px;
+  box-sizing: border-box;
+
   border: 1px solid black;
   background-color: white;
 
-
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+
+
+  gap: 20px;
 }
 
 
@@ -33,8 +37,9 @@ header h1 {
 
 
 nav {
-  grid-column: span 1;
-  background-color: #c63b30;
+  grid-column: span 2;
+
+  background-color: transparent;
 }
 
 nav ul {
@@ -45,11 +50,11 @@ nav ul {
 
 nav li a {
   display: block;
+  background-color: #c63b30;
   border: 1px solid black;
   padding: 1em;
   color: #2b1d1b;
   text-decoration: none;
-  background-color: #c63b30;
 }
 
 nav li a:hover {
@@ -69,7 +74,6 @@ main h2 {
   margin: 0 0 12px 0;
   text-align: center;
 }
-
 
 main img {
   float: left;
