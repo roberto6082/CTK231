@@ -1,4 +1,4 @@
-/* CTK 301 - Assignment 6 */
+
 
 body{
   margin:0;
@@ -15,7 +15,7 @@ body{
   box-sizing:border-box;
 }
 
-/* Header */
+
 header{
   background:#000;
   padding:18px 20px;
@@ -29,7 +29,7 @@ header h1{
   color:#fff;
 }
 
-/* Two-column layout */
+
 #content-grid{
   display:grid;
   grid-template-columns: 190px 1fr;
@@ -38,7 +38,7 @@ header h1{
   box-sizing:border-box;
 }
 
-/* Nav */
+
 nav ul{
   list-style:none;
   margin:0;
