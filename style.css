@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Welcome Page</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="wrapper">
+    <header>
+      <h1><a href="index.html">Make this h1 a link to the welcome page</a></h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a class="active" href="index.html">Welcome Page</a></li>
+        <li><a href="about.html">About This Site</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </nav>
+
+    <div id="content" class="two-col">
+      <aside>
+        <h2>Welcome! (h2)</h2>
+        <p>
+          The navigation link boxes are all the same width regardless of the amount of text inside.
+          Make the nav link backgrounds change when you roll over them. Make sure all the text in
+          the links changes color when you roll over them (even the link in the h1).
+        </p>
+        <p>
+          Clicking on the ISU image in the footer should open the ISU main site in a new window/tab.
+          All three pages should have the same format for the headers, navigation, and footer.
+        </p>
+      </aside>
+
+      <main>
+        <h2>Another h2</h2>
+
+        <img class="figure" src="Intubate.png" alt="Hospital scene">
+
+        <p>
+          <a href="#">This is a link.</a> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Vestibulum rutrum, eros non tincidunt faucibus, risus turpis pulvinar arcu, ac fermentum orci
+          nibh sed libero.
+        </p>
+
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mauris euismod ante et nibh pretium
+          eleifend. Fusce at est sed sapien ullamcorper sodales ac sed purus.
+        </p>
+
+        <p>
+          <a href="#">This is a link.</a> Donec condimentum, nisi sed viverra tempus, nibh diam euismod
+          eros, id laoreet neque elit id nunc.
+        </p>
+      </main>
+    </div>
+
+    <footer>
+      <a href="https://illinoisstate.edu/" target="_blank" rel="noopener">
+        <img src="wordmark_isu.png" alt="Illinois State University">
+      </a>
+    </footer>
+  </div>
+</body>
+</html>
