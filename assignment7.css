@@ -1,0 +1,181 @@
+/* ====== base ====== */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #8e8e8e;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #111;
+}
+
+#wrapper {
+  width: 980px;
+  margin: 28px auto;
+  border: 4px solid #0a3f8f;
+  background: #fff;
+}
+
+/* red links requirement */
+a {
+  color: #b30000;
+  font-weight: bold;
+}
+a:hover { text-decoration: underline; }
+
+/* ====== header ====== */
+header {
+  padding: 22px 26px;
+  background: linear-gradient(#0b78d2, #065fb3);
+}
+
+header h1 {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: #9fd2ff;
+  font-size: 40px;
+}
+
+/* h1 is a link to welcome page */
+header h1 a {
+  color: #9fd2ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+header h1 a:hover { color: #ffffff; }
+
+/* ====== nav ====== */
+nav {
+  background: linear-gradient(#0b78d2, #065fb3);
+  border-top: 4px solid #0a3f8f;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav li { flex: 1; }
+
+nav a {
+  display: block;
+  text-align: center;
+  padding: 14px 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  color: #7fc3ff;
+  text-decoration: none;
+
+  /* equal-width boxes + divider lines */
+  border-left: 3px solid #0a3f8f;
+}
+nav li:first-child a { border-left: none; }
+
+/* hover state */
+nav a:hover {
+  color: #ffffff;
+  background: rgba(255,255,255,0.10);
+}
+
+/* “current tab” look */
+nav a.active {
+  color: #ffffff;
+  background: rgba(0,0,0,0.12);
+}
+
+/* ====== content area ====== */
+#content {
+  background: #cfe9f1;
+  padding: 18px;
+  border-top: 4px solid #0a3f8f;
+  border-bottom: 4px solid #0a3f8f;
+}
+
+/* shared h2 style */
+h2 {
+  margin: 0 0 12px 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  color: #0a3f8f;
+  font-weight: 500;
+  border-bottom: 3px solid #0a3f8f;
+  padding-bottom: 8px;
+}
+
+/* two-column layouts used on Welcome + About */
+.two-col {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+/* aside requirement */
+aside {
+  font-weight: 800;
+  text-align: justify;
+}
+
+/* main area: white panel with blue border */
+main {
+  background: #ffffff;
+  border: 3px solid #0a3f8f;
+  padding: 14px;
+}
+
+/* images */
+.figure {
+  display: block;
+  max-width: 100%;
+  border: 3px solid #0a3f8f;
+}
+
+.float-left {
+  float: left;
+  width: 360px;
+  max-width: 55%;
+  margin: 8px 16px 10px 0;
+  border: 3px solid #0a3f8f;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* ====== Gallery layout ====== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.card h2 { font-size: 26px; }
+
+.card img {
+  width: 100%;
+  display: block;
+  border: 3px solid #0a3f8f;
+  margin-bottom: 10px;
+}
+
+/* ====== footer ====== */
+footer {
+  background: #b30000;
+  padding: 18px 20px;
+}
+
+footer a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+footer img {
+  height: 64px;
+  display: block;
+}
