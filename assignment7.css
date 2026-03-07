@@ -4,65 +4,67 @@
 
 body {
   margin: 0;
-  background: #8f8f8f;
+  background: #8e8e8e;
   font-family: Georgia, "Times New Roman", serif;
-  color: #111;
 }
 
 #wrapper {
-  width: 970px;
-  margin: 18px auto;
+  width: 980px;
+  margin: 20px auto;
   border: 4px solid #0047b3;
-  background: #ffffff;
+  background: white;
 }
 
+
+
 header {
-  background: linear-gradient(to bottom, #1492e6, #005fc4);
-  padding: 24px 30px;
+  background: linear-gradient(#1492e6, #005fc4);
+  padding: 25px;
 }
 
 header h1 {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 37px;
   font-style: italic;
-  font-weight: normal;
+  font-size: 34px;
 }
 
 header h1 a {
-  color: #8ec6ff;
   text-decoration: none;
+  color: #9fd2ff;
 }
 
 header h1 a:hover {
-  color: #ffffff;
+  color: white;
 }
 
+
+
 nav {
-  background: linear-gradient(to bottom, #1492e6, #005fc4);
+  background: linear-gradient(#1492e6, #005fc4);
   border-top: 2px solid #0047b3;
   border-bottom: 2px solid #0047b3;
 }
 
 nav ul {
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
   display: flex;
 }
 
 nav li {
-  width: 245px;
+  flex: 1;
 }
 
 nav a {
   display: block;
-  padding: 14px 0;
   text-align: center;
+  padding: 10px 0;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 22px;
   font-weight: bold;
-  color: #74b7ef;
+  font-size: 15px;
+  color: #8fd0ff;
   text-decoration: none;
   border-right: 4px solid #0047b3;
 }
@@ -71,54 +73,53 @@ nav li:last-child a {
   border-right: none;
 }
 
-nav a:hover,
-nav a.active {
-  color: #ffffff;
+nav a:hover {
+  color: white;
+  background: rgba(255,255,255,.1);
 }
 
+nav a.active {
+  color: white;
+}
+
+
+
 #content {
-  background: #c7e8f3;
+  background: #cdeaf5;
   border-top: 2px solid #0047b3;
   border-bottom: 2px solid #0047b3;
 }
 
-/* Welcome page */
+
+
 .welcome-layout {
   display: grid;
   grid-template-columns: 33% 67%;
 }
 
 .welcome-left {
-  padding: 16px 16px 10px 16px;
+  padding: 18px;
 }
 
 .welcome-right {
   background: #f3f3f3;
-  padding: 16px 16px 16px 16px;
+  padding: 18px;
 }
 
 .welcome-left p {
   font-weight: bold;
   text-align: justify;
-  font-size: 23px;
-  line-height: 1.02;
-  margin-top: 18px;
-}
-
-.welcome-right p {
-  font-size: 20px;
-  line-height: 1.06;
-  margin: 12px 0;
 }
 
 .welcome-right img {
-  width: 408px;
+  width: 380px;
   float: left;
-  margin: 10px 18px 10px 0;
+  margin: 10px 20px 10px 0;
   border: 3px solid #0047b3;
 }
 
-/* About page */
+
+
 .about-layout {
   display: grid;
   grid-template-columns: 67% 33%;
@@ -126,90 +127,68 @@ nav a.active {
 
 .about-main {
   background: #f3f3f3;
-  padding: 16px;
+  padding: 18px;
 }
 
 .about-side {
-  padding: 20px 16px;
+  padding: 18px;
 }
 
-.about-main p {
-  font-size: 20px;
-  line-height: 1.06;
-  margin: 12px 0;
+.about-main img {
+  width: 380px;
+  float: left;
+  margin: 10px 20px 10px 0;
+  border: 3px solid #0047b3;
 }
 
 .about-side p {
   font-weight: bold;
   text-align: justify;
-  font-size: 23px;
-  line-height: 1.02;
-  margin-top: 10px;
 }
 
-.about-main img {
-  width: 410px;
-  float: left;
-  margin: 10px 18px 10px 0;
-  border: 3px solid #0047b3;
-}
 
-/* Gallery page */
+
 .gallery-layout {
   background: #f3f3f3;
-  padding: 16px;
+  padding: 18px;
 }
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.gallery-grid section p {
-  font-size: 20px;
-  line-height: 1.06;
-  margin: 12px 0;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
 }
 
 .gallery-grid img {
   width: 100%;
-  display: block;
   border: 1px solid #888;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
+
+
 
 h2 {
-  margin: 0 0 14px 0;
-  padding-bottom: 6px;
-  border-bottom: 4px solid #0047b3;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 24px;
-  font-weight: normal;
-  color: #002fa7;
+  color: #003fa3;
+  border-bottom: 4px solid #0047b3;
+  padding-bottom: 6px;
+  margin-top: 0;
 }
 
+
+
 a {
-  color: #d10000;
+  color: #c40000;
   font-weight: bold;
 }
 
+
+
 footer {
   background: #d91c00;
-  padding: 18px 16px;
-}
-
-footer a {
-  text-decoration: none;
+  padding: 20px;
 }
 
 footer img {
-  display: block;
-  height: 74px;
-}
-
-.clearfix::after {
-  content: "";
-  display: block;
-  clear: both;
+  height: 70px;
 }
