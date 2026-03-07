@@ -64,7 +64,7 @@ nav a:hover{
   background:#7a0000;
 }
 
-/* Main content */
+
 main{
   padding-right:8px;
 }
@@ -78,7 +78,7 @@ main h2{
   border-bottom:2px solid #000;
 }
 
-/* Photo + intro text */
+
 .intro-grid{
   display:grid;
   grid-template-columns: 1fr 260px;
@@ -102,7 +102,7 @@ main h2{
   box-sizing:border-box;
 }
 
-/* Paragraphs */
+
 main p{
   font-family: Georgia, "Times New Roman", serif;
   font-size:13px;
@@ -117,7 +117,7 @@ main p{
   margin:0 0 12px 0;
 }
 
-/* Main paragraph link states */
+
 main a:link,
 main a:visited{
   color:#ff0000;
@@ -130,7 +130,7 @@ main a:hover{
   text-decoration:underline;
 }
 
-/* Footer */
+
 footer{
   margin-top:10px;
   background:#ff0000;
