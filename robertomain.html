@@ -106,8 +106,8 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      opacity: 0.42;
-      filter: blur(3px) brightness(0.6);
+      opacity: 0.38;
+      filter: blur(3px) brightness(0.58);
       transform: scale(0.9);
       transition:
         transform 0.28s ease,
@@ -303,58 +303,65 @@
     const rightBtn = document.getElementById('rightBtn');
     const player = document.getElementById('player');
 
-    const originalItems = Array.from(carousel.children);
-    const originalCount = originalItems.length;
+    const originals = Array.from(carousel.children);
+    const originalCount = originals.length;
 
-    // clone full set before and after for infinite loop
-    const before = originalItems.map(item => {
+    // one clone set before + one original set + one clone set after
+    const frontClones = originals.map(item => {
       const clone = item.cloneNode(true);
       clone.classList.add('clone');
       return clone;
     });
 
-    const after = originalItems.map(item => {
+    const backClones = originals.map(item => {
       const clone = item.cloneNode(true);
       clone.classList.add('clone');
       return clone;
     });
 
-    before.forEach(clone => carousel.insertBefore(clone, carousel.firstChild));
-    after.forEach(clone => carousel.appendChild(clone));
+    frontClones.forEach(clone => carousel.insertBefore(clone, carousel.firstChild));
+    backClones.forEach(clone => carousel.appendChild(clone));
 
     let albums = Array.from(carousel.querySelectorAll('.album'));
     let ticking = false;
-    let isJumping = false;
+    let isLoopJumping = false;
     let cardStep = 0;
 
     function getMiddleSet() {
       return albums.slice(originalCount, originalCount * 2);
     }
 
-    function getSetWidth() {
+    function getSetMetrics() {
       const middleSet = getMiddleSet();
-      if (!middleSet.length) return 0;
-
       const first = middleSet[0];
       const last = middleSet[middleSet.length - 1];
-      return (last.offsetLeft + last.offsetWidth) - first.offsetLeft;
+
+      if (!first || !last) return null;
+
+      return {
+        first,
+        last,
+        start: first.offsetLeft,
+        end: last.offsetLeft + last.offsetWidth,
+        width: (last.offsetLeft + last.offsetWidth) - first.offsetLeft
+      };
     }
 
-    function getCarouselCenter() {
+    function getCarouselCenterX() {
       return carousel.scrollLeft + carousel.clientWidth / 2;
     }
 
     function getClosestAlbum() {
-      const center = getCarouselCenter();
+      const centerX = getCarouselCenterX();
       let closest = null;
-      let smallest = Infinity;
+      let minDistance = Infinity;
 
       albums.forEach(album => {
         const albumCenter = album.offsetLeft + album.offsetWidth / 2;
-        const distance = Math.abs(center - albumCenter);
+        const distance = Math.abs(centerX - albumCenter);
 
-        if (distance < smallest) {
-          smallest = distance;
+        if (distance < minDistance) {
+          minDistance = distance;
           closest = album;
         }
       });
@@ -373,16 +380,15 @@
 
       active.classList.add('active');
 
-      const index = albums.indexOf(active);
-      if (albums[index - 1]) albums[index - 1].classList.add('near');
-      if (albums[index + 1]) albums[index + 1].classList.add('near');
+      const activeIndex = albums.indexOf(active);
+      if (albums[activeIndex - 1]) albums[activeIndex - 1].classList.add('near');
+      if (albums[activeIndex + 1]) albums[activeIndex + 1].classList.add('near');
     }
 
     function centerAlbum(album, behavior = 'smooth') {
       if (!album) return;
 
-      const targetLeft =
-        album.offsetLeft - (carousel.clientWidth / 2) + (album.offsetWidth / 2);
+      const targetLeft = album.offsetLeft - (carousel.clientWidth / 2) + (album.offsetWidth / 2);
 
       carousel.scrollTo({
         left: targetLeft,
@@ -390,27 +396,37 @@
       });
     }
 
+    function centerMiddleAlbumByIndex(index, behavior = 'smooth') {
+      const middleSet = getMiddleSet();
+      if (!middleSet.length) return;
+
+      const wrappedIndex = ((index % originalCount) + originalCount) % originalCount;
+      const target = middleSet[wrappedIndex];
+      centerAlbum(target, behavior);
+    }
+
     function maintainInfiniteLoop() {
-      if (isJumping) return;
+      if (isLoopJumping) return;
 
-      const setWidth = getSetWidth();
-      if (!setWidth) return;
+      const metrics = getSetMetrics();
+      if (!metrics) return;
 
-      const min = setWidth * 0.5;
-      const max = setWidth * 1.5;
+      const buffer = cardStep * 0.5;
+      const leftLimit = metrics.start - buffer;
+      const rightLimit = metrics.end - carousel.clientWidth + buffer;
 
-      if (carousel.scrollLeft < min) {
-        isJumping = true;
-        carousel.scrollLeft += setWidth;
+      if (carousel.scrollLeft < leftLimit) {
+        isLoopJumping = true;
+        carousel.scrollLeft += metrics.width;
         requestAnimationFrame(() => {
-          isJumping = false;
+          isLoopJumping = false;
           requestTick();
         });
-      } else if (carousel.scrollLeft > max) {
-        isJumping = true;
-        carousel.scrollLeft -= setWidth;
+      } else if (carousel.scrollLeft > rightLimit) {
+        isLoopJumping = true;
+        carousel.scrollLeft -= metrics.width;
         requestAnimationFrame(() => {
-          isJumping = false;
+          isLoopJumping = false;
           requestTick();
         });
       }
@@ -434,12 +450,18 @@
       return cardStep;
     }
 
+    function getCurrentMiddleIndex() {
+      const middleSet = getMiddleSet();
+      const closest = getClosestAlbum();
+      if (!closest) return 0;
+
+      const rawIndex = albums.indexOf(closest) - originalCount;
+      return ((rawIndex % originalCount) + originalCount) % originalCount;
+    }
+
     function scrollByOne(direction) {
-      const step = cardStep || measureStep();
-      carousel.scrollBy({
-        left: step * direction,
-        behavior: 'smooth'
-      });
+      const currentIndex = getCurrentMiddleIndex();
+      centerMiddleAlbumByIndex(currentIndex + direction, 'smooth');
     }
 
     function bindAlbumClicks() {
@@ -447,7 +469,10 @@
         album.addEventListener('click', () => {
           const videoId = album.dataset.video;
           player.src = `https://www.youtube.com/embed/${videoId}`;
-          centerAlbum(album, 'smooth');
+
+          const clickedIndex = albums.indexOf(album);
+          const logicalIndex = ((clickedIndex - originalCount) % originalCount + originalCount) % originalCount;
+          centerMiddleAlbumByIndex(logicalIndex, 'smooth');
         });
       });
     }
@@ -455,7 +480,6 @@
     leftBtn.addEventListener('click', () => scrollByOne(-1));
     rightBtn.addEventListener('click', () => scrollByOne(1));
 
-    // smoother mouse wheel horizontal scroll
     carousel.addEventListener('wheel', (e) => {
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
         e.preventDefault();
@@ -467,6 +491,8 @@
 
     window.addEventListener('resize', () => {
       measureStep();
+      const currentIndex = getCurrentMiddleIndex();
+      centerMiddleAlbumByIndex(currentIndex, 'auto');
       requestTick();
     });
 
@@ -477,7 +503,8 @@
       measureStep();
 
       const middleSet = getMiddleSet();
-      const startAlbum = middleSet[Math.floor(middleSet.length / 2)];
+      const startIndex = Math.floor(originalCount / 2);
+      const startAlbum = middleSet[startIndex];
 
       if (startAlbum) {
         centerAlbum(startAlbum, 'auto');
