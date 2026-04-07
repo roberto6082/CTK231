@@ -12,10 +12,6 @@
       padding: 0;
     }
 
-    html, body {
-      overflow-x: hidden;
-    }
-
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: #d9d9d9;
@@ -60,7 +56,7 @@
 
     .carousel-wrap {
       display: grid;
-      grid-template-columns: 56px minmax(0, 1fr) 56px;
+      grid-template-columns: 56px 1fr 56px;
       align-items: center;
       gap: 14px;
       margin-bottom: 28px;
@@ -75,7 +71,6 @@
       width: 56px;
       color: white;
       transition: 0.2s ease;
-      z-index: 3;
     }
 
     .arrow:hover {
@@ -91,8 +86,7 @@
       scrollbar-width: none;
       scroll-behavior: smooth;
       align-items: center;
-      padding: 20px calc(50% - 130px) 26px;
-      min-width: 0;
+      padding: 16px 12px 18px;
     }
 
     .albums::-webkit-scrollbar {
@@ -103,43 +97,38 @@
       flex: 0 0 260px;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-end;
       cursor: pointer;
-      opacity: 0.38;
-      filter: blur(3px) brightness(0.62);
+      opacity: 0.45;
+      filter: blur(3px) brightness(0.6);
       transform: scale(0.88);
       transition:
-        transform 0.28s ease,
-        filter 0.28s ease,
-        opacity 0.28s ease;
-      position: relative;
+        transform 0.25s ease,
+        filter 0.25s ease,
+        opacity 0.25s ease;
     }
 
     .album.active {
       opacity: 1;
       filter: blur(0) brightness(1);
-      transform: scale(1.06);
+      transform: scale(1.05);
       z-index: 2;
     }
 
     .album.near {
       opacity: 0.72;
-      filter: blur(1.3px) brightness(0.8);
-      transform: scale(0.95);
+      filter: blur(1.5px) brightness(0.8);
+      transform: scale(0.94);
     }
 
     .album-art {
       width: 100%;
-      height: auto;
       max-height: 340px;
+      height: auto;
       object-fit: contain;
-      object-position: center;
       display: block;
-      border-radius: 4px;
+      border-radius: 3px;
       box-shadow: 0 12px 30px rgba(0,0,0,0.28);
-      user-select: none;
-      -webkit-user-drag: none;
-      pointer-events: none;
     }
 
     .intro {
@@ -188,11 +177,6 @@
         flex: 0 0 220px;
       }
 
-      .albums {
-        padding-left: calc(50% - 110px);
-        padding-right: calc(50% - 110px);
-      }
-
       .album-art {
         max-height: 300px;
       }
@@ -214,7 +198,7 @@
       }
 
       .carousel-wrap {
-        grid-template-columns: 44px minmax(0, 1fr) 44px;
+        grid-template-columns: 44px 1fr 44px;
         gap: 8px;
       }
 
@@ -226,8 +210,6 @@
 
       .albums {
         gap: 18px;
-        padding-left: calc(50% - 85px);
-        padding-right: calc(50% - 85px);
       }
 
       .album {
@@ -262,16 +244,17 @@
         <button class="arrow" id="leftBtn">&#8249;</button>
 
         <div class="albums" id="carousel">
-          <div class="album" data-index="0" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0310.jpg" alt="Don't Say!" /></div>
-          <div class="album" data-index="1" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0301.jpg" alt="Do It Better" /></div>
-          <div class="album" data-index="2" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0302.jpg" alt="Knew That" /></div>
-          <div class="album" data-index="3" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0303.jpg" alt="Petty For More" /></div>
-          <div class="album" data-index="4" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0304.jpg" alt="Period" /></div>
-          <div class="album" data-index="5" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0305.jpg" alt="Excuse Me!" /></div>
-          <div class="album" data-index="6" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0306.jpg" alt="Blitz" /></div>
-          <div class="album" data-index="7" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0307.jpg" alt="Trance" /></div>
-          <div class="album" data-index="8" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0308.jpg" alt="Falling Out" /></div>
-          <div class="album" data-index="9" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0309.jpg" alt="Relapse" /></div>
+          <!-- originals -->
+          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0310.jpg" alt="Don't Say!" /></div>
+          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0301.jpg" alt="Do It Better" /></div>
+          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0302.jpg" alt="Knew That" /></div>
+          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0303.jpg" alt="Petty For More" /></div>
+          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0304.jpg" alt="Period" /></div>
+          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0305.jpg" alt="Excuse Me!" /></div>
+          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0306.jpg" alt="Blitz" /></div>
+          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0307.jpg" alt="Trance" /></div>
+          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0308.jpg" alt="Falling Out" /></div>
+          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0309.jpg" alt="Relapse" /></div>
         </div>
 
         <button class="arrow" id="rightBtn">&#8250;</button>
@@ -310,191 +293,120 @@
     const rightBtn = document.getElementById('rightBtn');
     const player = document.getElementById('player');
 
-    const originals = Array.from(carousel.querySelectorAll('.album'));
+    const originals = Array.from(carousel.children);
     const originalCount = originals.length;
 
-    let albums = [];
-    let currentRealIndex = Math.floor(originalCount / 2);
-    let setWidth = 0;
-    let scrollTicking = false;
-    let isArrowAnimating = false;
+    // clone end copies to front
+    originals.forEach(item => {
+      const clone = item.cloneNode(true);
+      clone.classList.add('clone');
+      carousel.insertBefore(clone, carousel.firstChild);
+    });
 
-    function makeCloneSet() {
-      return originals.map(item => {
-        const clone = item.cloneNode(true);
-        clone.classList.add('clone');
-        return clone;
-      });
-    }
+    // clone start copies to end
+    originals.forEach(item => {
+      const clone = item.cloneNode(true);
+      clone.classList.add('clone');
+      carousel.appendChild(clone);
+    });
 
-    const beforeSet = makeCloneSet();
-    const afterSet = makeCloneSet();
+    let albums = Array.from(carousel.querySelectorAll('.album'));
+    let originalSetWidth = 0;
 
-    beforeSet.forEach(item => carousel.insertBefore(item, carousel.firstChild));
-    afterSet.forEach(item => carousel.appendChild(item));
+    function calculateOriginalSetWidth() {
+      originalSetWidth = 0;
+      const originalsNow = albums.slice(originalCount, originalCount * 2);
 
-    albums = Array.from(carousel.querySelectorAll('.album'));
-
-    function getMiddleSet() {
-      return albums.slice(originalCount, originalCount * 2);
-    }
-
-    function getMiddleAlbumByRealIndex(index) {
-      const middleSet = getMiddleSet();
-      return middleSet[index] || null;
-    }
-
-    function measureSetWidth() {
-      const middleSet = getMiddleSet();
-      if (!middleSet.length) return 0;
-
-      const first = middleSet[0];
-      const last = middleSet[middleSet.length - 1];
-      return (last.offsetLeft + last.offsetWidth) - first.offsetLeft;
-    }
-
-    function getScrollLeftForCenter(album) {
-      return album.offsetLeft - (carousel.clientWidth / 2) + (album.clientWidth / 2);
-    }
-
-    function centerAlbum(album, behavior = 'smooth') {
-      if (!album) return;
-      carousel.scrollTo({
-        left: getScrollLeftForCenter(album),
-        behavior
-      });
-    }
-
-    function getCarouselCenterX() {
-      const rect = carousel.getBoundingClientRect();
-      return rect.left + rect.width / 2;
-    }
-
-    function getClosestAlbum() {
-      const centerX = getCarouselCenterX();
-      let closest = null;
-      let smallestDistance = Infinity;
-
-      albums.forEach(album => {
-        const rect = album.getBoundingClientRect();
-        const albumCenter = rect.left + rect.width / 2;
-        const distance = Math.abs(centerX - albumCenter);
-
-        if (distance < smallestDistance) {
-          smallestDistance = distance;
-          closest = album;
+      originalsNow.forEach((album, index) => {
+        originalSetWidth += album.offsetWidth;
+        if (index < originalsNow.length - 1) {
+          originalSetWidth += 28; // matches CSS gap
         }
       });
-
-      return closest;
-    }
-
-    function updateActiveAlbum() {
-      const active = getClosestAlbum();
-
-      albums.forEach(album => {
-        album.classList.remove('active', 'near');
-      });
-
-      if (!active) return;
-
-      active.classList.add('active');
-
-      const activeIndex = albums.indexOf(active);
-      if (albums[activeIndex - 1]) albums[activeIndex - 1].classList.add('near');
-      if (albums[activeIndex + 1]) albums[activeIndex + 1].classList.add('near');
-
-      if (!isArrowAnimating) {
-        const realIndex = Number(active.dataset.index);
-        if (!Number.isNaN(realIndex)) {
-          currentRealIndex = realIndex;
-        }
-      }
-    }
-
-    function normalizeInfiniteScroll() {
-      if (!setWidth) return;
-
-      const current = carousel.scrollLeft;
-
-      if (current < setWidth * 0.5) {
-        carousel.scrollLeft = current + setWidth;
-      } else if (current > setWidth * 1.5) {
-        carousel.scrollLeft = current - setWidth;
-      }
-    }
-
-    function handleScroll() {
-      normalizeInfiniteScroll();
-      updateActiveAlbum();
-      scrollTicking = false;
-    }
-
-    function requestScrollUpdate() {
-      if (scrollTicking) return;
-      scrollTicking = true;
-      requestAnimationFrame(handleScroll);
-    }
-
-    function stepArrow(direction) {
-      if (isArrowAnimating) return;
-
-      isArrowAnimating = true;
-
-      currentRealIndex += direction;
-
-      if (currentRealIndex < 0) currentRealIndex = originalCount - 1;
-      if (currentRealIndex >= originalCount) currentRealIndex = 0;
-
-      const target = getMiddleAlbumByRealIndex(currentRealIndex);
-      centerAlbum(target, 'smooth');
-
-      setTimeout(() => {
-        isArrowAnimating = false;
-        updateActiveAlbum();
-      }, 380);
     }
 
     function bindAlbumClicks() {
       albums.forEach(album => {
         album.addEventListener('click', () => {
-          const realIndex = Number(album.dataset.index);
           const videoId = album.dataset.video;
-
-          if (!Number.isNaN(realIndex)) {
-            currentRealIndex = realIndex;
-            const target = getMiddleAlbumByRealIndex(realIndex);
-            centerAlbum(target, 'smooth');
-          }
-
           player.src = `https://www.youtube.com/embed/${videoId}`;
         });
       });
     }
 
-    leftBtn.addEventListener('click', () => stepArrow(-1));
-    rightBtn.addEventListener('click', () => stepArrow(1));
+    function updateActiveAlbum() {
+      const rect = carousel.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+
+      let closest = null;
+      let closestDist = Infinity;
+
+      albums.forEach(album => {
+        album.classList.remove('active', 'near');
+
+        const albumRect = album.getBoundingClientRect();
+        const albumCenter = albumRect.left + albumRect.width / 2;
+        const distance = Math.abs(centerX - albumCenter);
+
+        if (distance < closestDist) {
+          closestDist = distance;
+          closest = album;
+        }
+      });
+
+      if (!closest) return;
+
+      closest.classList.add('active');
+
+      const activeIndex = albums.indexOf(closest);
+      if (activeIndex > 0) albums[activeIndex - 1].classList.add('near');
+      if (activeIndex < albums.length - 1) albums[activeIndex + 1].classList.add('near');
+    }
+
+    function maintainInfiniteScroll() {
+      if (!originalSetWidth) return;
+
+      if (carousel.scrollLeft < originalSetWidth * 0.5) {
+        carousel.scrollLeft += originalSetWidth;
+      } else if (carousel.scrollLeft > originalSetWidth * 1.5) {
+        carousel.scrollLeft -= originalSetWidth;
+      }
+    }
+
+    function scrollByAmount(amount) {
+      carousel.scrollBy({
+        left: amount,
+        behavior: 'smooth'
+      });
+    }
+
+    leftBtn.addEventListener('click', () => scrollByAmount(-320));
+    rightBtn.addEventListener('click', () => scrollByAmount(320));
 
     carousel.addEventListener('wheel', (e) => {
       e.preventDefault();
       carousel.scrollLeft += e.deltaY + e.deltaX;
     }, { passive: false });
 
-    carousel.addEventListener('scroll', requestScrollUpdate);
+    carousel.addEventListener('scroll', () => {
+      maintainInfiniteScroll();
+      updateActiveAlbum();
+    });
 
     window.addEventListener('resize', () => {
-      setWidth = measureSetWidth();
-      const target = getMiddleAlbumByRealIndex(currentRealIndex);
-      centerAlbum(target, 'auto');
+      calculateOriginalSetWidth();
       updateActiveAlbum();
     });
 
     bindAlbumClicks();
 
     window.addEventListener('load', () => {
-      setWidth = measureSetWidth();
-      const startAlbum = getMiddleAlbumByRealIndex(currentRealIndex);
-      centerAlbum(startAlbum, 'auto');
+      albums = Array.from(carousel.querySelectorAll('.album'));
+      calculateOriginalSetWidth();
+
+      // start in the middle set so infinite loop works both directions
+      carousel.scrollLeft = originalSetWidth;
+
       updateActiveAlbum();
     });
   </script>
