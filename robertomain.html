@@ -108,6 +108,7 @@
     }
 
     .album {
+      position: relative;
       flex: 0 0 clamp(155px, 17vw, 185px);
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.08);
@@ -125,26 +126,25 @@
     }
 
     .album-info {
-      padding-top: 8px;
-      font-size: 10px;
-      line-height: 1.35;
-      color: rgba(255,255,255,0.9);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+      font-size: 12px;
+      color: white;
     }
 
     .album-title {
       font-weight: bold;
-      font-size: 10px;
+      font-size: 12px;
       margin-bottom: 2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .album-artist {
-      color: rgba(255,255,255,0.72);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 11px;
+      color: rgba(255,255,255,0.8);
     }
 
     .intro {
