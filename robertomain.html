@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Roberto's Menu - Main Page</title>
 
   <style>
@@ -28,7 +28,7 @@
     }
 
     .container {
-      max-width: 1300px;
+      max-width: 1380px;
       margin: 0 auto;
     }
 
@@ -36,7 +36,7 @@
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 12px;
-      margin-bottom: 40px;
+      margin-bottom: 34px;
     }
 
     .nav a {
@@ -46,7 +46,7 @@
       padding: 18px;
       text-align: center;
       font-size: 20px;
-      transition: 0.2s;
+      transition: 0.2s ease;
     }
 
     .nav a:hover {
@@ -56,27 +56,38 @@
 
     .carousel-wrap {
       display: grid;
-      grid-template-columns: 50px 1fr 50px;
+      grid-template-columns: 56px 1fr 56px;
       align-items: center;
-      gap: 15px;
-      margin-bottom: 40px;
+      gap: 14px;
+      margin-bottom: 28px;
     }
 
     .arrow {
-      font-size: 30px;
-      background: rgba(255,255,255,0.2);
+      font-size: 32px;
+      background: rgba(255,255,255,0.18);
       border: none;
       cursor: pointer;
-      height: 50px;
+      height: 56px;
+      width: 56px;
       color: white;
+      transition: 0.2s ease;
+    }
+
+    .arrow:hover {
+      background: rgba(255,255,255,0.28);
+      transform: scale(1.04);
     }
 
     .albums {
       display: flex;
-      gap: 25px;
+      gap: 28px;
       overflow-x: auto;
+      overflow-y: hidden;
       scrollbar-width: none;
       scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      align-items: center;
+      padding: 16px 18vw 18px;
     }
 
     .albums::-webkit-scrollbar {
@@ -84,33 +95,52 @@
     }
 
     .album {
-      flex: 0 0 180px;
+      flex: 0 0 240px;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
       display: flex;
       justify-content: center;
       align-items: flex-end;
+      cursor: pointer;
+      filter: blur(2px) brightness(0.72);
+      opacity: 0.72;
+      transform: scale(0.9);
+      transition:
+        transform 0.28s ease,
+        filter 0.28s ease,
+        opacity 0.28s ease;
+    }
+
+    .album.active {
+      filter: blur(0px) brightness(1);
+      opacity: 1;
+      transform: scale(1.08);
+      z-index: 2;
     }
 
     .album-art {
-      max-width: 100%;
-      max-height: 240px;
-      width: auto;
+      width: 100%;
+      max-height: 320px;
       height: auto;
       object-fit: contain;
       display: block;
+      border-radius: 2px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.28);
     }
 
     .intro {
-      width: 70%;
+      width: 68%;
       margin: 0 auto;
       text-align: center;
       line-height: 1.5;
+      font-size: 18px;
     }
 
     .divider {
-      width: 70%;
-      margin: 20px auto;
+      width: 68%;
+      margin: 18px auto 24px;
       border: none;
-      border-top: 2px solid white;
+      border-top: 2px solid rgba(255,255,255,0.8);
     }
 
     .video-preview {
@@ -124,6 +154,7 @@
       aspect-ratio: 16 / 9;
       background: #111;
       overflow: hidden;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.26);
     }
 
     .video-frame iframe {
@@ -138,28 +169,67 @@
       font-size: 12px;
     }
 
+    @media (max-width: 1100px) {
+      .albums {
+        padding: 16px 12vw 18px;
+      }
+
+      .album {
+        flex: 0 0 210px;
+      }
+
+      .album-art {
+        max-height: 290px;
+      }
+
+      .video-preview,
+      .intro,
+      .divider {
+        width: 78%;
+      }
+    }
+
     @media (max-width: 800px) {
+      .page {
+        padding: 20px;
+      }
+
       .nav {
         grid-template-columns: repeat(2, 1fr);
       }
 
+      .carousel-wrap {
+        grid-template-columns: 44px 1fr 44px;
+        gap: 8px;
+      }
+
+      .arrow {
+        width: 44px;
+        height: 44px;
+        font-size: 26px;
+      }
+
+      .albums {
+        gap: 18px;
+        padding: 14px 10vw 14px;
+      }
+
       .album {
-        flex: 0 0 140px;
+        flex: 0 0 170px;
+      }
+
+      .album-art {
+        max-height: 230px;
       }
 
       .intro,
       .divider,
       .video-preview {
-        width: 90%;
-      }
-
-      .page {
-        padding: 20px;
+        width: 92%;
       }
     }
   </style>
 </head>
-
 <body>
   <main class="page">
     <div class="container">
@@ -176,31 +246,62 @@
         <button class="arrow" id="leftBtn">&#8249;</button>
 
         <div class="albums" id="carousel">
-          <div class="album"><img class="album-art" src="IMG_0310.jpg" alt="Album 1"></div>
-          <div class="album"><img class="album-art" src="IMG_0301.jpg" alt="Album 2"></div>
-          <div class="album"><img class="album-art" src="IMG_0302.jpg" alt="Album 3"></div>
-          <div class="album"><img class="album-art" src="IMG_0303.jpg" alt="Album 4"></div>
-          <div class="album"><img class="album-art" src="IMG_0304.jpg" alt="Album 5"></div>
-          <div class="album"><img class="album-art" src="IMG_0305.jpg" alt="Album 6"></div>
-          <div class="album"><img class="album-art" src="IMG_0306.jpg" alt="Album 7"></div>
-          <div class="album"><img class="album-art" src="IMG_0307.jpg" alt="Album 8"></div>
-          <div class="album"><img class="album-art" src="IMG_0308.jpg" alt="Album 9"></div>
-          <div class="album"><img class="album-art" src="IMG_0309.jpg" alt="Album 10"></div>
+          <div class="album" data-video="rM8B4Ozq2Tg">
+            <img class="album-art" src="IMG_0310.jpg" alt="Don't Say!" />
+          </div>
+
+          <div class="album" data-video="rM8B4Ozq2Tg">
+            <img class="album-art" src="IMG_0301.jpg" alt="Do It Better" />
+          </div>
+
+          <div class="album" data-video="rM8B4Ozq2Tg">
+            <img class="album-art" src="IMG_0302.jpg" alt="Knew That" />
+          </div>
+
+          <div class="album" data-video="rM8B4Ozq2Tg">
+            <img class="album-art" src="IMG_0303.jpg" alt="Petty For More" />
+          </div>
+
+          <div class="album" data-video="rM8B4Ozq2Tg">
+            <img class="album-art" src="IMG_0304.jpg" alt="Period" />
+          </div>
+
+          <div class="album" data-video="rM8B4Ozq2Tg">
+            <img class="album-art" src="IMG_0305.jpg" alt="Excuse Me!" />
+          </div>
+
+          <div class="album" data-video="rM8B4Ozq2Tg">
+            <img class="album-art" src="IMG_0306.jpg" alt="Blitz" />
+          </div>
+
+          <div class="album" data-video="rM8B4Ozq2Tg">
+            <img class="album-art" src="IMG_0307.jpg" alt="Trance" />
+          </div>
+
+          <div class="album" data-video="rM8B4Ozq2Tg">
+            <img class="album-art" src="IMG_0308.jpg" alt="Falling Out" />
+          </div>
+
+          <div class="album" data-video="rM8B4Ozq2Tg">
+            <img class="album-art" src="IMG_0309.jpg" alt="Relapse" />
+          </div>
         </div>
 
         <button class="arrow" id="rightBtn">&#8250;</button>
       </section>
 
       <p class="intro">
-        All beats are produced and arranged by me, blending original sound design with modern influences.
-        I’ve collaborated with a range of artists, helping shape unique sounds that stand out while staying true to each artist’s vision.
+        All beats are produced and arranged by me, blending original sound design with modern
+        influences. I’ve collaborated with a range of artists, helping shape unique sounds that
+        stand out while staying true to each artist’s vision.
       </p>
 
-      <hr class="divider">
+      <hr class="divider" />
 
       <div class="video-preview">
         <div class="video-frame">
           <iframe
+            id="player"
             src="https://www.youtube.com/embed/rM8B4Ozq2Tg"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -220,35 +321,116 @@
     const carousel = document.getElementById('carousel');
     const leftBtn = document.getElementById('leftBtn');
     const rightBtn = document.getElementById('rightBtn');
+    const player = document.getElementById('player');
 
-    const items = Array.from(carousel.children);
-    items.forEach(item => {
-      carousel.appendChild(item.cloneNode(true));
+    let albums = Array.from(document.querySelectorAll('.album'));
+    let snapTimeout;
+
+    function getCenteredAlbum() {
+      const carouselRect = carousel.getBoundingClientRect();
+      const carouselCenter = carouselRect.left + carouselRect.width / 2;
+
+      let closestAlbum = null;
+      let closestDistance = Infinity;
+
+      albums.forEach(album => {
+        const rect = album.getBoundingClientRect();
+        const albumCenter = rect.left + rect.width / 2;
+        const distance = Math.abs(carouselCenter - albumCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestAlbum = album;
+        }
+      });
+
+      return closestAlbum;
+    }
+
+    function updateActiveAlbum() {
+      const centeredAlbum = getCenteredAlbum();
+
+      albums.forEach(album => album.classList.remove('active'));
+
+      if (centeredAlbum) {
+        centeredAlbum.classList.add('active');
+      }
+    }
+
+    function centerAlbum(album, behavior = 'smooth') {
+      const left =
+        album.offsetLeft - (carousel.clientWidth / 2) + (album.clientWidth / 2);
+
+      carousel.scrollTo({
+        left,
+        behavior
+      });
+    }
+
+    function snapToNearest() {
+      const centeredAlbum = getCenteredAlbum();
+      if (centeredAlbum) {
+        centerAlbum(centeredAlbum, 'smooth');
+      }
+    }
+
+    function moveToAdjacent(direction) {
+      const active = getCenteredAlbum();
+      const index = albums.indexOf(active);
+      if (index === -1) return;
+
+      let nextIndex = index + direction;
+      if (nextIndex < 0) nextIndex = 0;
+      if (nextIndex >= albums.length) nextIndex = albums.length - 1;
+
+      centerAlbum(albums[nextIndex]);
+    }
+
+    leftBtn.addEventListener('click', () => moveToAdjacent(-1));
+    rightBtn.addEventListener('click', () => moveToAdjacent(1));
+
+    carousel.addEventListener(
+      'wheel',
+      (e) => {
+        e.preventDefault();
+
+        const direction = e.deltaY > 0 || e.deltaX > 0 ? 1 : -1;
+        moveToAdjacent(direction);
+      },
+      { passive: false }
+    );
+
+    carousel.addEventListener('scroll', () => {
+      updateActiveAlbum();
+
+      clearTimeout(snapTimeout);
+      snapTimeout = setTimeout(() => {
+        snapToNearest();
+      }, 90);
     });
 
-    let scrollAmount = 0;
+    albums.forEach(album => {
+      album.addEventListener('click', () => {
+        const videoId = album.dataset.video;
+        player.src = `https://www.youtube.com/embed/${videoId}`;
+        centerAlbum(album);
+      });
+    });
 
-    rightBtn.onclick = () => {
-      scrollAmount += 300;
-      carousel.scrollBy({ left: 300, behavior: 'smooth' });
-
-      if (scrollAmount >= carousel.scrollWidth / 2) {
-        setTimeout(() => {
-          carousel.scrollLeft = 0;
-          scrollAmount = 0;
-        }, 400);
+    window.addEventListener('load', () => {
+      updateActiveAlbum();
+      if (albums[0]) {
+        centerAlbum(albums[0], 'auto');
       }
-    };
+    });
 
-    leftBtn.onclick = () => {
-      if (carousel.scrollLeft <= 0) {
-        carousel.scrollLeft = carousel.scrollWidth / 2;
-        scrollAmount = carousel.scrollWidth / 2;
-      }
-
-      scrollAmount -= 300;
-      carousel.scrollBy({ left: -300, behavior: 'smooth' });
-    };
+    window.addEventListener('resize', () => {
+      updateActiveAlbum();
+      clearTimeout(snapTimeout);
+      snapTimeout = setTimeout(() => {
+        snapToNearest();
+      }, 120);
+    });
   </script>
 </body>
 </html>
