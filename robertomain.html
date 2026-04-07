@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roberto's Menu - Main Page</title>
 
 <style>
@@ -12,33 +12,42 @@
   padding: 0;
 }
 
+/* FULL SCREEN FIX */
 body {
   font-family: Arial, Helvetica, sans-serif;
   background: #d9d9d9;
   color: white;
-  padding: 40px 20px;
+  margin: 0;
+  padding: 0;
 }
 
+/* FULL WIDTH PAGE */
 .page {
-  width: min(1100px, calc(100vw - 48px));
-  margin: 0 auto;
-  padding: 20px;
+  width: 100%;
+  min-height: 100vh;
   background: linear-gradient(to bottom, #020b98, #2b0b69, #4b0b5b);
+  padding: 30px 40px;
+}
+
+/* CENTERED CONTENT */
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
 /* NAV */
 .nav {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  margin-bottom: 30px;
+  gap: 12px;
+  margin-bottom: 40px;
 }
 
 .nav a {
   text-decoration: none;
   color: white;
   background: black;
-  padding: 16px;
+  padding: 18px;
   text-align: center;
   font-size: 20px;
   transition: 0.2s;
@@ -54,8 +63,8 @@ body {
   display: grid;
   grid-template-columns: 50px 1fr 50px;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 30px;
+  gap: 15px;
+  margin-bottom: 40px;
 }
 
 .arrow {
@@ -64,11 +73,13 @@ body {
   border: none;
   cursor: pointer;
   height: 50px;
+  color: white;
 }
 
+/* SCROLL AREA */
 .albums {
   display: flex;
-  gap: 20px;
+  gap: 25px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -77,7 +88,7 @@ body {
   display: none;
 }
 
-/* 🔥 FIXED IMAGE STYLING */
+/* FIXED IMAGES (NO CROP) */
 .album {
   flex: 0 0 180px;
   display: flex;
@@ -95,27 +106,29 @@ body {
 
 /* TEXT */
 .intro {
-  width: 75%;
+  width: 70%;
   margin: 0 auto;
   text-align: center;
-  margin-bottom: 15px;
+  line-height: 1.5;
 }
 
 .divider {
-  width: 75%;
+  width: 70%;
   margin: 20px auto;
   border-top: 2px solid white;
 }
 
+/* VIDEO */
 .video-preview {
-  width: 65%;
-  height: 220px;
+  width: 60%;
+  height: 230px;
   background: #eee;
   color: black;
   margin: 0 auto 60px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 22px;
 }
 
 /* FOOTER */
@@ -139,6 +152,10 @@ footer {
   .video-preview {
     width: 90%;
   }
+
+  .page {
+    padding: 20px;
+  }
 }
 </style>
 </head>
@@ -146,6 +163,7 @@ footer {
 <body>
 
 <main class="page">
+<div class="container">
 
 <!-- NAV -->
 <nav class="nav">
@@ -162,7 +180,6 @@ footer {
 <button class="arrow" id="leftBtn">&#8249;</button>
 
 <div class="albums" id="carousel">
-
   <div class="album"><img class="album-art" src="IMG_0310.jpg"></div>
   <div class="album"><img class="album-art" src="IMG_0301.jpg"></div>
   <div class="album"><img class="album-art" src="IMG_0302.jpg"></div>
@@ -173,7 +190,6 @@ footer {
   <div class="album"><img class="album-art" src="IMG_0307.jpg"></div>
   <div class="album"><img class="album-art" src="IMG_0308.jpg"></div>
   <div class="album"><img class="album-art" src="IMG_0309.jpg"></div>
-
 </div>
 
 <button class="arrow" id="rightBtn">&#8250;</button>
@@ -188,12 +204,15 @@ I’ve collaborated with a range of artists, helping shape unique sounds that st
 
 <hr class="divider">
 
+<!-- VIDEO -->
 <div class="video-preview">video preview</div>
 
+<!-- FOOTER -->
 <footer>
 legal terms and what not and whatever goes at the bottom
 </footer>
 
+</div>
 </main>
 
 <script>
