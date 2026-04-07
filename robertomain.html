@@ -111,9 +111,9 @@
     .album {
       position: relative;
       flex: 0 0 clamp(170px, 17vw, 195px);
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 8px;
+      background: transparent;
+      border: none;
+      padding: 0;
       scroll-snap-align: start;
       display: flex;
       flex-direction: column;
@@ -124,20 +124,13 @@
       aspect-ratio: 1 / 1;
       width: 100%;
       display: block;
-      object-fit: contain;
+      object-fit: cover;
       object-position: center;
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(0,0,0,0.28);
-      border-radius: 2px;
+      border-radius: 4px;
     }
 
     .album-info {
-      position: static;
-      width: 100%;
-      padding: 8px 2px 0;
-      background: none;
-      font-size: 12px;
-      color: white;
+      display: none;
     }
 
     .album-title {
