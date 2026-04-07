@@ -12,6 +12,10 @@
       padding: 0;
     }
 
+    html, body {
+      overflow-x: hidden;
+    }
+
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: #d9d9d9;
@@ -56,7 +60,7 @@
 
     .carousel-wrap {
       display: grid;
-      grid-template-columns: 56px 1fr 56px;
+      grid-template-columns: 56px minmax(0, 1fr) 56px;
       align-items: center;
       gap: 14px;
       margin-bottom: 28px;
@@ -71,6 +75,7 @@
       width: 56px;
       color: white;
       transition: 0.2s ease;
+      z-index: 3;
     }
 
     .arrow:hover {
@@ -86,7 +91,8 @@
       scrollbar-width: none;
       scroll-behavior: smooth;
       align-items: center;
-      padding: 16px 0 18px;
+      padding: 20px calc(50% - 130px) 26px;
+      min-width: 0;
     }
 
     .albums::-webkit-scrollbar {
@@ -97,15 +103,16 @@
       flex: 0 0 260px;
       display: flex;
       justify-content: center;
-      align-items: flex-end;
+      align-items: center;
       cursor: pointer;
-      opacity: 0.42;
-      filter: blur(3px) brightness(0.6);
+      opacity: 0.38;
+      filter: blur(3px) brightness(0.62);
       transform: scale(0.88);
       transition:
-        transform 0.25s ease,
-        filter 0.25s ease,
-        opacity 0.25s ease;
+        transform 0.28s ease,
+        filter 0.28s ease,
+        opacity 0.28s ease;
+      position: relative;
     }
 
     .album.active {
@@ -117,19 +124,22 @@
 
     .album.near {
       opacity: 0.72;
-      filter: blur(1.4px) brightness(0.8);
+      filter: blur(1.3px) brightness(0.8);
       transform: scale(0.95);
     }
 
     .album-art {
       width: 100%;
-      max-height: 340px;
       height: auto;
+      max-height: 340px;
       object-fit: contain;
       object-position: center;
       display: block;
-      border-radius: 3px;
+      border-radius: 4px;
       box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
     }
 
     .intro {
@@ -178,6 +188,11 @@
         flex: 0 0 220px;
       }
 
+      .albums {
+        padding-left: calc(50% - 110px);
+        padding-right: calc(50% - 110px);
+      }
+
       .album-art {
         max-height: 300px;
       }
@@ -199,7 +214,7 @@
       }
 
       .carousel-wrap {
-        grid-template-columns: 44px 1fr 44px;
+        grid-template-columns: 44px minmax(0, 1fr) 44px;
         gap: 8px;
       }
 
@@ -211,6 +226,8 @@
 
       .albums {
         gap: 18px;
+        padding-left: calc(50% - 85px);
+        padding-right: calc(50% - 85px);
       }
 
       .album {
@@ -293,49 +310,42 @@
     const rightBtn = document.getElementById('rightBtn');
     const player = document.getElementById('player');
 
-    const gap = 28;
-    let isAdjustingLoop = false;
+    const originals = Array.from(carousel.querySelectorAll('.album'));
+    const originalCount = originals.length;
 
-    const originalItems = Array.from(carousel.children);
-    const originalCount = originalItems.length;
+    const makeCloneSet = () => {
+      return originals.map(item => {
+        const clone = item.cloneNode(true);
+        clone.classList.add('clone');
+        return clone;
+      });
+    };
 
-    // Clone one full set to front and one to back
-    const frontClones = originalItems.map(item => {
-      const clone = item.cloneNode(true);
-      clone.classList.add('clone');
-      return clone;
-    });
+    const beforeSet = makeCloneSet();
+    const afterSet = makeCloneSet();
 
-    const backClones = originalItems.map(item => {
-      const clone = item.cloneNode(true);
-      clone.classList.add('clone');
-      return clone;
-    });
-
-    frontClones.reverse().forEach(clone => {
-      carousel.insertBefore(clone, carousel.firstChild);
-    });
-
-    backClones.forEach(clone => {
-      carousel.appendChild(clone);
-    });
+    beforeSet.forEach(item => carousel.insertBefore(item, carousel.firstChild));
+    afterSet.forEach(item => carousel.appendChild(item));
 
     let albums = Array.from(carousel.querySelectorAll('.album'));
+    let ticking = false;
+    let setWidth = 0;
 
     function getMiddleSet() {
       return albums.slice(originalCount, originalCount * 2);
     }
 
-    function getSetWidth() {
+    function measureSetWidth() {
       const middleSet = getMiddleSet();
       if (!middleSet.length) return 0;
 
-      let width = 0;
-      middleSet.forEach((album, index) => {
-        width += album.offsetWidth;
-        if (index < middleSet.length - 1) width += gap;
-      });
-      return width;
+      const first = middleSet[0];
+      const last = middleSet[middleSet.length - 1];
+
+      const firstLeft = first.offsetLeft;
+      const lastRight = last.offsetLeft + last.offsetWidth;
+
+      return lastRight - firstLeft;
     }
 
     function getCarouselCenterX() {
@@ -373,9 +383,9 @@
 
       active.classList.add('active');
 
-      const activeIndex = albums.indexOf(active);
-      if (activeIndex > 0) albums[activeIndex - 1].classList.add('near');
-      if (activeIndex < albums.length - 1) albums[activeIndex + 1].classList.add('near');
+      const index = albums.indexOf(active);
+      if (albums[index - 1]) albums[index - 1].classList.add('near');
+      if (albums[index + 1]) albums[index + 1].classList.add('near');
     }
 
     function getScrollLeftForCenter(album) {
@@ -389,64 +399,40 @@
       });
     }
 
-    function centerCurrentClosest(behavior = 'auto') {
-      const active = getClosestAlbum();
-      if (active) centerAlbum(active, behavior);
-    }
-
-    function maintainInfiniteLoop() {
-      if (isAdjustingLoop) return;
-
-      const setWidth = getSetWidth();
+    function normalizeInfiniteScroll() {
       if (!setWidth) return;
 
-      const leftBoundary = setWidth * 0.5;
-      const rightBoundary = setWidth * 1.5;
+      const current = carousel.scrollLeft;
 
-      if (carousel.scrollLeft < leftBoundary || carousel.scrollLeft > rightBoundary) {
-        isAdjustingLoop = true;
-
-        const active = getClosestAlbum();
-        if (!active) {
-          isAdjustingLoop = false;
-          return;
-        }
-
-        const currentCenterOffset =
-          active.offsetLeft + active.clientWidth / 2 - carousel.scrollLeft;
-
-        if (carousel.scrollLeft < leftBoundary) {
-          carousel.scrollLeft += setWidth;
-        } else if (carousel.scrollLeft > rightBoundary) {
-          carousel.scrollLeft -= setWidth;
-        }
-
-        const newClosest = getClosestAlbum();
-        if (newClosest) {
-          const desiredScrollLeft =
-            newClosest.offsetLeft + newClosest.clientWidth / 2 - currentCenterOffset;
-          carousel.scrollLeft = desiredScrollLeft;
-        }
-
-        updateActiveAlbum();
-
-        requestAnimationFrame(() => {
-          isAdjustingLoop = false;
-        });
+      if (current < setWidth * 0.5) {
+        carousel.scrollLeft = current + setWidth;
+      } else if (current > setWidth * 1.5) {
+        carousel.scrollLeft = current - setWidth;
       }
+    }
+
+    function handleScroll() {
+      normalizeInfiniteScroll();
+      updateActiveAlbum();
+      ticking = false;
+    }
+
+    function requestScrollUpdate() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(handleScroll);
     }
 
     function scrollToAdjacent(direction) {
       const active = getClosestAlbum();
       if (!active) return;
 
-      const index = albums.indexOf(active);
-      let targetIndex = index + direction;
+      const currentIndex = albums.indexOf(active);
+      const target = albums[currentIndex + direction];
 
-      if (targetIndex < 0) targetIndex = 0;
-      if (targetIndex > albums.length - 1) targetIndex = albums.length - 1;
-
-      centerAlbum(albums[targetIndex]);
+      if (target) {
+        centerAlbum(target, 'smooth');
+      }
     }
 
     function bindAlbumClicks() {
@@ -454,7 +440,7 @@
         album.addEventListener('click', () => {
           const videoId = album.dataset.video;
           player.src = `https://www.youtube.com/embed/${videoId}`;
-          centerAlbum(album);
+          centerAlbum(album, 'smooth');
         });
       });
     }
@@ -467,20 +453,22 @@
       carousel.scrollLeft += e.deltaY + e.deltaX;
     }, { passive: false });
 
-    carousel.addEventListener('scroll', () => {
-      maintainInfiniteLoop();
-      updateActiveAlbum();
-    });
+    carousel.addEventListener('scroll', requestScrollUpdate);
 
     window.addEventListener('resize', () => {
+      setWidth = measureSetWidth();
+      const active = getClosestAlbum();
+      if (active) {
+        centerAlbum(active, 'auto');
+      }
       updateActiveAlbum();
-      centerCurrentClosest('auto');
     });
 
     bindAlbumClicks();
 
     window.addEventListener('load', () => {
       albums = Array.from(carousel.querySelectorAll('.album'));
+      setWidth = measureSetWidth();
 
       const middleSet = getMiddleSet();
       const startAlbum = middleSet[Math.floor(middleSet.length / 2)];
