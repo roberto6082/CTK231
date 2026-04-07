@@ -313,13 +313,13 @@
     const originals = Array.from(carousel.querySelectorAll('.album'));
     const originalCount = originals.length;
 
-    const makeCloneSet = () => {
+    function makeCloneSet() {
       return originals.map(item => {
         const clone = item.cloneNode(true);
         clone.classList.add('clone');
         return clone;
       });
-    };
+    }
 
     const beforeSet = makeCloneSet();
     const afterSet = makeCloneSet();
@@ -423,16 +423,28 @@
       requestAnimationFrame(handleScroll);
     }
 
+    function getAlbumKey(album) {
+      const img = album.querySelector('img');
+      return `${album.dataset.video}|${img ? img.getAttribute('src') : ''}`;
+    }
+
     function scrollToAdjacent(direction) {
       const active = getClosestAlbum();
       if (!active) return;
 
-      const currentIndex = albums.indexOf(active);
-      const target = albums[currentIndex + direction];
+      const middleSet = getMiddleSet();
+      const activeKey = getAlbumKey(active);
 
-      if (target) {
-        centerAlbum(target, 'smooth');
-      }
+      let realIndex = middleSet.findIndex(item => getAlbumKey(item) === activeKey);
+      if (realIndex === -1) return;
+
+      realIndex += direction;
+
+      if (realIndex < 0) realIndex = middleSet.length - 1;
+      if (realIndex >= middleSet.length) realIndex = 0;
+
+      const target = middleSet[realIndex];
+      centerAlbum(target, 'smooth');
     }
 
     function bindAlbumClicks() {
