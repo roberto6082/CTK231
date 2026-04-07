@@ -312,9 +312,12 @@
 
     const originals = Array.from(carousel.querySelectorAll('.album'));
     const originalCount = originals.length;
-    let currentRealIndex = 0;
-    let ticking = false;
+
+    let albums = [];
+    let currentRealIndex = Math.floor(originalCount / 2);
     let setWidth = 0;
+    let scrollTicking = false;
+    let isArrowAnimating = false;
 
     function makeCloneSet() {
       return originals.map(item => {
@@ -330,15 +333,15 @@
     beforeSet.forEach(item => carousel.insertBefore(item, carousel.firstChild));
     afterSet.forEach(item => carousel.appendChild(item));
 
-    let albums = Array.from(carousel.querySelectorAll('.album'));
+    albums = Array.from(carousel.querySelectorAll('.album'));
 
     function getMiddleSet() {
       return albums.slice(originalCount, originalCount * 2);
     }
 
-    function getMiddleAlbumByRealIndex(realIndex) {
+    function getMiddleAlbumByRealIndex(index) {
       const middleSet = getMiddleSet();
-      return middleSet[realIndex] || null;
+      return middleSet[index] || null;
     }
 
     function measureSetWidth() {
@@ -401,35 +404,43 @@
       if (albums[activeIndex - 1]) albums[activeIndex - 1].classList.add('near');
       if (albums[activeIndex + 1]) albums[activeIndex + 1].classList.add('near');
 
-      const realIndex = Number(active.dataset.index);
-      if (!Number.isNaN(realIndex)) {
-        currentRealIndex = realIndex;
+      if (!isArrowAnimating) {
+        const realIndex = Number(active.dataset.index);
+        if (!Number.isNaN(realIndex)) {
+          currentRealIndex = realIndex;
+        }
       }
     }
 
     function normalizeInfiniteScroll() {
       if (!setWidth) return;
 
-      if (carousel.scrollLeft < setWidth * 0.5) {
-        carousel.scrollLeft += setWidth;
-      } else if (carousel.scrollLeft > setWidth * 1.5) {
-        carousel.scrollLeft -= setWidth;
+      const current = carousel.scrollLeft;
+
+      if (current < setWidth * 0.5) {
+        carousel.scrollLeft = current + setWidth;
+      } else if (current > setWidth * 1.5) {
+        carousel.scrollLeft = current - setWidth;
       }
     }
 
     function handleScroll() {
       normalizeInfiniteScroll();
       updateActiveAlbum();
-      ticking = false;
+      scrollTicking = false;
     }
 
     function requestScrollUpdate() {
-      if (ticking) return;
-      ticking = true;
+      if (scrollTicking) return;
+      scrollTicking = true;
       requestAnimationFrame(handleScroll);
     }
 
-    function scrollToAdjacent(direction) {
+    function stepArrow(direction) {
+      if (isArrowAnimating) return;
+
+      isArrowAnimating = true;
+
       currentRealIndex += direction;
 
       if (currentRealIndex < 0) currentRealIndex = originalCount - 1;
@@ -437,6 +448,11 @@
 
       const target = getMiddleAlbumByRealIndex(currentRealIndex);
       centerAlbum(target, 'smooth');
+
+      setTimeout(() => {
+        isArrowAnimating = false;
+        updateActiveAlbum();
+      }, 380);
     }
 
     function bindAlbumClicks() {
@@ -456,8 +472,8 @@
       });
     }
 
-    leftBtn.addEventListener('click', () => scrollToAdjacent(-1));
-    rightBtn.addEventListener('click', () => scrollToAdjacent(1));
+    leftBtn.addEventListener('click', () => stepArrow(-1));
+    rightBtn.addEventListener('click', () => stepArrow(1));
 
     carousel.addEventListener('wheel', (e) => {
       e.preventDefault();
@@ -476,12 +492,8 @@
     bindAlbumClicks();
 
     window.addEventListener('load', () => {
-      albums = Array.from(carousel.querySelectorAll('.album'));
       setWidth = measureSetWidth();
-
-      currentRealIndex = Math.floor(originalCount / 2);
       const startAlbum = getMiddleAlbumByRealIndex(currentRealIndex);
-
       centerAlbum(startAlbum, 'auto');
       updateActiveAlbum();
     });
