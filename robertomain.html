@@ -20,8 +20,6 @@
       font-family: Arial, Helvetica, sans-serif;
       background: #d9d9d9;
       color: white;
-      margin: 0;
-      padding: 0;
     }
 
     .page {
@@ -63,7 +61,7 @@
       grid-template-columns: 56px 1fr 56px;
       align-items: center;
       gap: 14px;
-      margin-bottom: 28px;
+      margin-bottom: 34px;
     }
 
     .arrow {
@@ -75,7 +73,7 @@
       width: 56px;
       color: white;
       transition: 0.2s ease;
-      z-index: 5;
+      z-index: 10;
     }
 
     .arrow:hover {
@@ -83,21 +81,26 @@
       transform: scale(1.04);
     }
 
-    .albums {
+    .carousel-viewport {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      min-height: 320px;
       display: flex;
-      gap: 28px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scrollbar-width: none;
       align-items: center;
-      padding: 18px 0 22px;
-      scroll-behavior: smooth;
-      overscroll-behavior-x: contain;
-      -webkit-overflow-scrolling: touch;
+      justify-content: center;
     }
 
-    .albums::-webkit-scrollbar {
-      display: none;
+    .carousel-track {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      will-change: transform;
+      transform: translateX(0);
+    }
+
+    .carousel-track.animate {
+      transition: transform 0.42s ease;
     }
 
     .album {
@@ -106,30 +109,17 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      opacity: 0.38;
-      filter: blur(3px) brightness(0.58);
-      transform: scale(0.9);
+      opacity: 0.22;
+      filter: blur(4px) brightness(0.48);
+      transform: scale(0.84);
       transition:
-        transform 0.28s ease,
-        filter 0.28s ease,
-        opacity 0.28s ease;
-      will-change: transform, filter, opacity;
+        transform 0.32s ease,
+        filter 0.32s ease,
+        opacity 0.32s ease;
+      user-select: none;
     }
 
-    .album.active {
-      opacity: 1;
-      filter: blur(0) brightness(1);
-      transform: scale(1.08);
-      z-index: 2;
-    }
-
-    .album.near {
-      opacity: 0.72;
-      filter: blur(1.2px) brightness(0.82);
-      transform: scale(0.96);
-    }
-
-    .album-art {
+    .album img {
       width: 100%;
       height: auto;
       max-height: 340px;
@@ -140,6 +130,25 @@
       box-shadow: 0 12px 30px rgba(0,0,0,0.28);
       pointer-events: none;
       user-select: none;
+    }
+
+    .album.far {
+      opacity: 0.16;
+      filter: blur(5px) brightness(0.4);
+      transform: scale(0.8);
+    }
+
+    .album.near {
+      opacity: 0.62;
+      filter: blur(1.5px) brightness(0.78);
+      transform: scale(0.93);
+    }
+
+    .album.active {
+      opacity: 1;
+      filter: blur(0) brightness(1);
+      transform: scale(1.08);
+      z-index: 2;
     }
 
     .intro {
@@ -185,11 +194,11 @@
 
     @media (max-width: 1100px) {
       .album {
-        flex: 0 0 205px;
+        flex: 0 0 200px;
       }
 
-      .album-art {
-        max-height: 300px;
+      .album img {
+        max-height: 290px;
       }
 
       .video-preview,
@@ -219,16 +228,12 @@
         font-size: 26px;
       }
 
-      .albums {
-        gap: 18px;
-      }
-
       .album {
-        flex: 0 0 165px;
+        flex: 0 0 150px;
       }
 
-      .album-art {
-        max-height: 230px;
+      .album img {
+        max-height: 220px;
       }
 
       .intro,
@@ -254,17 +259,8 @@
       <section class="carousel-wrap">
         <button class="arrow" id="leftBtn">&#8249;</button>
 
-        <div class="albums" id="carousel">
-          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0310.jpg" alt="Don't Say!" /></div>
-          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0301.jpg" alt="Do It Better" /></div>
-          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0302.jpg" alt="Knew That" /></div>
-          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0303.jpg" alt="Petty For More" /></div>
-          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0304.jpg" alt="Period" /></div>
-          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0305.jpg" alt="Excuse Me!" /></div>
-          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0306.jpg" alt="Blitz" /></div>
-          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0307.jpg" alt="Trance" /></div>
-          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0308.jpg" alt="Falling Out" /></div>
-          <div class="album" data-video="rM8B4Ozq2Tg"><img class="album-art" src="IMG_0309.jpg" alt="Relapse" /></div>
+        <div class="carousel-viewport" id="carouselViewport">
+          <div class="carousel-track" id="carouselTrack"></div>
         </div>
 
         <button class="arrow" id="rightBtn">&#8250;</button>
@@ -298,219 +294,170 @@
   </main>
 
   <script>
-    const carousel = document.getElementById('carousel');
+    const track = document.getElementById('carouselTrack');
+    const viewport = document.getElementById('carouselViewport');
     const leftBtn = document.getElementById('leftBtn');
     const rightBtn = document.getElementById('rightBtn');
     const player = document.getElementById('player');
 
-    const originals = Array.from(carousel.children);
-    const originalCount = originals.length;
+    const items = [
+      { src: 'IMG_0310.jpg', alt: "Don't Say!", video: 'rM8B4Ozq2Tg' },
+      { src: 'IMG_0301.jpg', alt: 'Do It Better', video: 'rM8B4Ozq2Tg' },
+      { src: 'IMG_0302.jpg', alt: 'Knew That', video: 'rM8B4Ozq2Tg' },
+      { src: 'IMG_0303.jpg', alt: 'Petty For More', video: 'rM8B4Ozq2Tg' },
+      { src: 'IMG_0304.jpg', alt: 'Period', video: 'rM8B4Ozq2Tg' },
+      { src: 'IMG_0305.jpg', alt: 'Excuse Me!', video: 'rM8B4Ozq2Tg' },
+      { src: 'IMG_0306.jpg', alt: 'Blitz', video: 'rM8B4Ozq2Tg' },
+      { src: 'IMG_0307.jpg', alt: 'Trance', video: 'rM8B4Ozq2Tg' },
+      { src: 'IMG_0308.jpg', alt: 'Falling Out', video: 'rM8B4Ozq2Tg' },
+      { src: 'IMG_0309.jpg', alt: 'Relapse', video: 'rM8B4Ozq2Tg' }
+    ];
 
-    // one clone set before + one original set + one clone set after
-    const frontClones = originals.map(item => {
-      const clone = item.cloneNode(true);
-      clone.classList.add('clone');
-      return clone;
-    });
-
-    const backClones = originals.map(item => {
-      const clone = item.cloneNode(true);
-      clone.classList.add('clone');
-      return clone;
-    });
-
-    frontClones.forEach(clone => carousel.insertBefore(clone, carousel.firstChild));
-    backClones.forEach(clone => carousel.appendChild(clone));
-
-    let albums = Array.from(carousel.querySelectorAll('.album'));
-    let ticking = false;
-    let isLoopJumping = false;
+    let order = [...items];
+    let isAnimating = false;
+    let wheelLocked = false;
     let cardStep = 0;
+    const GAP = 28;
 
-    function getMiddleSet() {
-      return albums.slice(originalCount, originalCount * 2);
+    function makeAlbum(item) {
+      const div = document.createElement('div');
+      div.className = 'album';
+      div.dataset.video = item.video;
+      div.dataset.alt = item.alt;
+      div.innerHTML = `<img src="${item.src}" alt="${item.alt}">`;
+
+      div.addEventListener('click', () => {
+        player.src = `https://www.youtube.com/embed/${item.video}`;
+      });
+
+      return div;
     }
 
-    function getSetMetrics() {
-      const middleSet = getMiddleSet();
-      const first = middleSet[0];
-      const last = middleSet[middleSet.length - 1];
-
-      if (!first || !last) return null;
-
-      return {
-        first,
-        last,
-        start: first.offsetLeft,
-        end: last.offsetLeft + last.offsetWidth,
-        width: (last.offsetLeft + last.offsetWidth) - first.offsetLeft
-      };
+    function render() {
+      track.innerHTML = '';
+      order.forEach(item => track.appendChild(makeAlbum(item)));
+      updateClasses();
+      centerTrack();
+      measureStep();
     }
 
-    function getCarouselCenterX() {
-      return carousel.scrollLeft + carousel.clientWidth / 2;
-    }
+    function updateClasses() {
+      const cards = Array.from(track.children);
+      const centerIndex = Math.floor(cards.length / 2);
 
-    function getClosestAlbum() {
-      const centerX = getCarouselCenterX();
-      let closest = null;
-      let minDistance = Infinity;
+      cards.forEach((card, i) => {
+        card.classList.remove('far', 'near', 'active');
 
-      albums.forEach(album => {
-        const albumCenter = album.offsetLeft + album.offsetWidth / 2;
-        const distance = Math.abs(centerX - albumCenter);
-
-        if (distance < minDistance) {
-          minDistance = distance;
-          closest = album;
+        if (i === centerIndex) {
+          card.classList.add('active');
+        } else if (i === centerIndex - 1 || i === centerIndex + 1) {
+          card.classList.add('near');
+        } else {
+          card.classList.add('far');
         }
-      });
-
-      return closest;
-    }
-
-    function updateActiveAlbum() {
-      const active = getClosestAlbum();
-
-      albums.forEach(album => {
-        album.classList.remove('active', 'near');
-      });
-
-      if (!active) return;
-
-      active.classList.add('active');
-
-      const activeIndex = albums.indexOf(active);
-      if (albums[activeIndex - 1]) albums[activeIndex - 1].classList.add('near');
-      if (albums[activeIndex + 1]) albums[activeIndex + 1].classList.add('near');
-    }
-
-    function centerAlbum(album, behavior = 'smooth') {
-      if (!album) return;
-
-      const targetLeft = album.offsetLeft - (carousel.clientWidth / 2) + (album.offsetWidth / 2);
-
-      carousel.scrollTo({
-        left: targetLeft,
-        behavior
-      });
-    }
-
-    function centerMiddleAlbumByIndex(index, behavior = 'smooth') {
-      const middleSet = getMiddleSet();
-      if (!middleSet.length) return;
-
-      const wrappedIndex = ((index % originalCount) + originalCount) % originalCount;
-      const target = middleSet[wrappedIndex];
-      centerAlbum(target, behavior);
-    }
-
-    function maintainInfiniteLoop() {
-      if (isLoopJumping) return;
-
-      const metrics = getSetMetrics();
-      if (!metrics) return;
-
-      const buffer = cardStep * 0.5;
-      const leftLimit = metrics.start - buffer;
-      const rightLimit = metrics.end - carousel.clientWidth + buffer;
-
-      if (carousel.scrollLeft < leftLimit) {
-        isLoopJumping = true;
-        carousel.scrollLeft += metrics.width;
-        requestAnimationFrame(() => {
-          isLoopJumping = false;
-          requestTick();
-        });
-      } else if (carousel.scrollLeft > rightLimit) {
-        isLoopJumping = true;
-        carousel.scrollLeft -= metrics.width;
-        requestAnimationFrame(() => {
-          isLoopJumping = false;
-          requestTick();
-        });
-      }
-    }
-
-    function requestTick() {
-      if (ticking) return;
-
-      ticking = true;
-      requestAnimationFrame(() => {
-        maintainInfiniteLoop();
-        updateActiveAlbum();
-        ticking = false;
       });
     }
 
     function measureStep() {
-      const middleSet = getMiddleSet();
-      if (middleSet.length < 2) return 260;
-      cardStep = middleSet[1].offsetLeft - middleSet[0].offsetLeft;
-      return cardStep;
+      const cards = Array.from(track.children);
+      if (cards.length < 2) return;
+
+      const firstRect = cards[0].getBoundingClientRect();
+      const secondRect = cards[1].getBoundingClientRect();
+      cardStep = secondRect.left - firstRect.left;
     }
 
-    function getCurrentMiddleIndex() {
-      const middleSet = getMiddleSet();
-      const closest = getClosestAlbum();
-      if (!closest) return 0;
+    function centerTrack() {
+      const cards = Array.from(track.children);
+      if (!cards.length) return;
 
-      const rawIndex = albums.indexOf(closest) - originalCount;
-      return ((rawIndex % originalCount) + originalCount) % originalCount;
+      const centerIndex = Math.floor(cards.length / 2);
+      const activeCard = cards[centerIndex];
+
+      const viewportWidth = viewport.clientWidth;
+      const trackLeftToActiveCenter = activeCard.offsetLeft + (activeCard.offsetWidth / 2);
+      const targetTranslate = (viewportWidth / 2) - trackLeftToActiveCenter;
+
+      track.style.transform = `translateX(${targetTranslate}px)`;
     }
 
-    function scrollByOne(direction) {
-      const currentIndex = getCurrentMiddleIndex();
-      centerMiddleAlbumByIndex(currentIndex + direction, 'smooth');
+    function shiftNext() {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      track.classList.add('animate');
+      track.style.transform = `translateX(calc(${getCurrentTranslate()}px - ${cardStep}px))`;
+
+      const onEnd = () => {
+        track.classList.remove('animate');
+        order.push(order.shift());
+        render();
+        isAnimating = false;
+        track.removeEventListener('transitionend', onEnd);
+      };
+
+      track.addEventListener('transitionend', onEnd);
     }
 
-    function bindAlbumClicks() {
-      albums.forEach(album => {
-        album.addEventListener('click', () => {
-          const videoId = album.dataset.video;
-          player.src = `https://www.youtube.com/embed/${videoId}`;
+    function shiftPrev() {
+      if (isAnimating) return;
+      isAnimating = true;
 
-          const clickedIndex = albums.indexOf(album);
-          const logicalIndex = ((clickedIndex - originalCount) % originalCount + originalCount) % originalCount;
-          centerMiddleAlbumByIndex(logicalIndex, 'smooth');
+      order.unshift(order.pop());
+      render();
+
+      track.classList.remove('animate');
+      track.style.transform = `translateX(calc(${getCurrentTranslate()}px - ${cardStep}px))`;
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          track.classList.add('animate');
+          centerTrack();
+
+          const onEnd = () => {
+            track.classList.remove('animate');
+            centerTrack();
+            isAnimating = false;
+            track.removeEventListener('transitionend', onEnd);
+          };
+
+          track.addEventListener('transitionend', onEnd);
         });
       });
     }
 
-    leftBtn.addEventListener('click', () => scrollByOne(-1));
-    rightBtn.addEventListener('click', () => scrollByOne(1));
+    function getCurrentTranslate() {
+      const style = window.getComputedStyle(track);
+      const matrix = new DOMMatrixReadOnly(style.transform);
+      return matrix.m41;
+    }
 
-    carousel.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        e.preventDefault();
-        carousel.scrollLeft += e.deltaY * 0.9;
+    leftBtn.addEventListener('click', shiftPrev);
+    rightBtn.addEventListener('click', shiftNext);
+
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if (wheelLocked || isAnimating) return;
+
+      wheelLocked = true;
+
+      if (e.deltaY > 0 || e.deltaX > 0) {
+        shiftNext();
+      } else {
+        shiftPrev();
       }
+
+      setTimeout(() => {
+        wheelLocked = false;
+      }, 420);
     }, { passive: false });
 
-    carousel.addEventListener('scroll', requestTick);
-
     window.addEventListener('resize', () => {
-      measureStep();
-      const currentIndex = getCurrentMiddleIndex();
-      centerMiddleAlbumByIndex(currentIndex, 'auto');
-      requestTick();
+      render();
     });
 
-    bindAlbumClicks();
-
     window.addEventListener('load', () => {
-      albums = Array.from(carousel.querySelectorAll('.album'));
-      measureStep();
-
-      const middleSet = getMiddleSet();
-      const startIndex = Math.floor(originalCount / 2);
-      const startAlbum = middleSet[startIndex];
-
-      if (startAlbum) {
-        centerAlbum(startAlbum, 'auto');
-      }
-
-      updateActiveAlbum();
+      render();
     });
   </script>
 </body>
