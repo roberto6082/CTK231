@@ -12,7 +12,6 @@
   padding: 0;
 }
 
-/* FULL SCREEN FIX */
 body {
   font-family: Arial, Helvetica, sans-serif;
   background: #d9d9d9;
@@ -21,7 +20,6 @@ body {
   padding: 0;
 }
 
-/* FULL WIDTH PAGE */
 .page {
   width: 100%;
   min-height: 100vh;
@@ -29,13 +27,11 @@ body {
   padding: 30px 40px;
 }
 
-/* CENTERED CONTENT */
 .container {
   max-width: 1300px;
   margin: 0 auto;
 }
 
-/* NAV */
 .nav {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -58,7 +54,6 @@ body {
   background: #222;
 }
 
-/* CAROUSEL */
 .carousel-wrap {
   display: grid;
   grid-template-columns: 50px 1fr 50px;
@@ -76,19 +71,18 @@ body {
   color: white;
 }
 
-/* SCROLL AREA */
 .albums {
   display: flex;
   gap: 25px;
   overflow-x: auto;
   scrollbar-width: none;
+  scroll-behavior: smooth;
 }
 
 .albums::-webkit-scrollbar {
   display: none;
 }
 
-/* FIXED IMAGES (NO CROP) */
 .album {
   flex: 0 0 180px;
   display: flex;
@@ -104,7 +98,6 @@ body {
   object-fit: contain;
 }
 
-/* TEXT */
 .intro {
   width: 70%;
   margin: 0 auto;
@@ -115,29 +108,36 @@ body {
 .divider {
   width: 70%;
   margin: 20px auto;
+  border: none;
   border-top: 2px solid white;
 }
 
-/* VIDEO */
+/* YOUTUBE VIDEO SECTION */
 .video-preview {
   width: 60%;
-  height: 230px;
-  background: #eee;
-  color: black;
   margin: 0 auto 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 22px;
 }
 
-/* FOOTER */
+.video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #111;
+  overflow: hidden;
+}
+
+.video-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
 footer {
   text-align: center;
   font-size: 12px;
 }
 
-/* MOBILE */
 @media (max-width: 800px) {
   .nav {
     grid-template-columns: repeat(2, 1fr);
@@ -163,56 +163,58 @@ footer {
 <body>
 
 <main class="page">
-<div class="container">
+  <div class="container">
 
-<!-- NAV -->
-<nav class="nav">
-  <a href="#">video</a>
-  <a href="#">Audio</a>
-  <a href="#">Roberto's Menu</a>
-  <a href="#">projects</a>
-  <a href="#">Contact</a>
-</nav>
+    <nav class="nav">
+      <a href="#">video</a>
+      <a href="#">Audio</a>
+      <a href="#">Roberto's Menu</a>
+      <a href="#">projects</a>
+      <a href="#">Contact</a>
+    </nav>
 
-<!-- CAROUSEL -->
-<section class="carousel-wrap">
+    <section class="carousel-wrap">
+      <button class="arrow" id="leftBtn">&#8249;</button>
 
-<button class="arrow" id="leftBtn">&#8249;</button>
+      <div class="albums" id="carousel">
+        <div class="album"><img class="album-art" src="IMG_0310.jpg" alt="Album 1"></div>
+        <div class="album"><img class="album-art" src="IMG_0301.jpg" alt="Album 2"></div>
+        <div class="album"><img class="album-art" src="IMG_0302.jpg" alt="Album 3"></div>
+        <div class="album"><img class="album-art" src="IMG_0303.jpg" alt="Album 4"></div>
+        <div class="album"><img class="album-art" src="IMG_0304.jpg" alt="Album 5"></div>
+        <div class="album"><img class="album-art" src="IMG_0305.jpg" alt="Album 6"></div>
+        <div class="album"><img class="album-art" src="IMG_0306.jpg" alt="Album 7"></div>
+        <div class="album"><img class="album-art" src="IMG_0307.jpg" alt="Album 8"></div>
+        <div class="album"><img class="album-art" src="IMG_0308.jpg" alt="Album 9"></div>
+        <div class="album"><img class="album-art" src="IMG_0309.jpg" alt="Album 10"></div>
+      </div>
 
-<div class="albums" id="carousel">
-  <div class="album"><img class="album-art" src="IMG_0310.jpg"></div>
-  <div class="album"><img class="album-art" src="IMG_0301.jpg"></div>
-  <div class="album"><img class="album-art" src="IMG_0302.jpg"></div>
-  <div class="album"><img class="album-art" src="IMG_0303.jpg"></div>
-  <div class="album"><img class="album-art" src="IMG_0304.jpg"></div>
-  <div class="album"><img class="album-art" src="IMG_0305.jpg"></div>
-  <div class="album"><img class="album-art" src="IMG_0306.jpg"></div>
-  <div class="album"><img class="album-art" src="IMG_0307.jpg"></div>
-  <div class="album"><img class="album-art" src="IMG_0308.jpg"></div>
-  <div class="album"><img class="album-art" src="IMG_0309.jpg"></div>
-</div>
+      <button class="arrow" id="rightBtn">&#8250;</button>
+    </section>
 
-<button class="arrow" id="rightBtn">&#8250;</button>
+    <p class="intro">
+      All beats are produced and arranged by me, blending original sound design with modern influences.
+      I’ve collaborated with a range of artists, helping shape unique sounds that stand out while staying true to each artist’s vision.
+    </p>
 
-</section>
+    <hr class="divider">
 
-<!-- TEXT -->
-<p class="intro">
-All beats are produced and arranged by me, blending original sound design with modern influences.
-I’ve collaborated with a range of artists, helping shape unique sounds that stand out while staying true to each artist’s vision.
-</p>
+    <div class="video-preview">
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
 
-<hr class="divider">
+    <footer>
+      legal terms and what not and whatever goes at the bottom
+    </footer>
 
-<!-- VIDEO -->
-<div class="video-preview">video preview</div>
-
-<!-- FOOTER -->
-<footer>
-legal terms and what not and whatever goes at the bottom
-</footer>
-
-</div>
+  </div>
 </main>
 
 <script>
@@ -220,7 +222,6 @@ const carousel = document.getElementById('carousel');
 const leftBtn = document.getElementById('leftBtn');
 const rightBtn = document.getElementById('rightBtn');
 
-/* CLONE FOR INFINITE LOOP */
 const items = Array.from(carousel.children);
 items.forEach(item => {
   carousel.appendChild(item.cloneNode(true));
