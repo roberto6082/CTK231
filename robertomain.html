@@ -101,6 +101,7 @@
       width: 100%;
       scroll-behavior: smooth;
       scroll-snap-type: x proximity;
+      align-items: flex-start;
     }
 
     .albums::-webkit-scrollbar {
@@ -109,29 +110,32 @@
 
     .album {
       position: relative;
-      flex: 0 0 clamp(155px, 17vw, 185px);
+      flex: 0 0 clamp(170px, 17vw, 195px);
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.08);
-      padding: 6px;
+      padding: 8px;
       scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
 
     .album-art {
       aspect-ratio: 1 / 1;
       width: 100%;
       display: block;
-      object-fit: cover;
-      background: rgba(255,255,255,0.12);
+      object-fit: contain;
+      object-position: center;
+      background: rgba(0,0,0,0.18);
       border: 1px solid rgba(0,0,0,0.28);
+      border-radius: 2px;
     }
 
     .album-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
+      position: static;
       width: 100%;
-      padding: 10px;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+      padding: 8px 2px 0;
+      background: none;
       font-size: 12px;
       color: white;
     }
@@ -140,11 +144,17 @@
       font-weight: bold;
       font-size: 12px;
       margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .album-artist {
       font-size: 11px;
       color: rgba(255,255,255,0.8);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .intro {
