@@ -354,19 +354,43 @@
       legal terms and what not and whatever goes at the bbottom
     </footer>
   </main>
-  <script>
+    <script>
     const carousel = document.getElementById('carousel');
     const leftBtn = document.getElementById('leftBtn');
     const rightBtn = document.getElementById('rightBtn');
 
-    leftBtn.addEventListener('click', () => {
-      carousel.scrollBy({ left: -300, behavior: 'smooth' });
+    // Clone items for infinite effect
+    const items = Array.from(carousel.children);
+    items.forEach(item => {
+      const clone = item.cloneNode(true);
+      carousel.appendChild(clone);
     });
 
+    let scrollAmount = 0;
+
     rightBtn.addEventListener('click', () => {
+      scrollAmount += 300;
       carousel.scrollBy({ left: 300, behavior: 'smooth' });
+
+      if (scrollAmount >= carousel.scrollWidth / 2) {
+        setTimeout(() => {
+          carousel.scrollLeft = 0;
+          scrollAmount = 0;
+        }, 400);
+      }
+    });
+
+    leftBtn.addEventListener('click', () => {
+      if (carousel.scrollLeft <= 0) {
+        carousel.scrollLeft = carousel.scrollWidth / 2;
+        scrollAmount = carousel.scrollWidth / 2;
+      }
+
+      scrollAmount -= 300;
+      carousel.scrollBy({ left: -300, behavior: 'smooth' });
     });
   </script>
 </body>
 </html>
+
 
