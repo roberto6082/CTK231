@@ -236,8 +236,7 @@
       border-radius: 10px;
     }
 
-    .video-frame iframe,
-    .audio-frame iframe {
+    .video-frame iframe {
       width: 100%;
       height: 100%;
       border: none;
@@ -245,12 +244,20 @@
       border-radius: 10px;
     }
 
-    .audio-frame {
+    .tiktok-wrap {
       width: 100%;
-      height: 352px;
+      min-height: 352px;
       background: #111;
       overflow: hidden;
       border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 10px 0;
+    }
+
+    .tiktok-wrap blockquote.tiktok-embed {
+      margin: 0 !important;
     }
 
     .projects-section {
@@ -400,7 +407,7 @@
 
       <nav class="nav">
         <a href="#video">Video</a>
-        <a href="#audio">Audio</a>
+        <a href="#audio">TikTok</a>
         <a href="#top">Roberto's Menu</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
@@ -442,15 +449,17 @@
         </div>
 
         <div class="embed-card" id="audio">
-          <h3><i class="fa-brands fa-spotify"></i> Audio Feature</h3>
-          <div class="audio-frame">
-            <iframe
-              style="border-radius:12px"
-              src="https://open.spotify.com/embed/track/11dFghVXANMlKmJXsNCbNl?utm_source=generator"
-              allowfullscreen=""
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy">
-            </iframe>
+          <h3><i class="fa-brands fa-tiktok"></i> TikTok Feature</h3>
+          <div class="tiktok-wrap">
+            <blockquote
+              class="tiktok-embed"
+              cite="https://www.tiktok.com/@w3cook"
+              data-video-id="7350000000000000000"
+              style="max-width: 325px; min-width: 325px;">
+              <section>
+                <a target="_blank" href="https://www.tiktok.com/@w3cook">@w3cook</a>
+              </section>
+            </blockquote>
           </div>
         </div>
       </section>
@@ -659,5 +668,7 @@
     window.addEventListener('resize', render);
     window.addEventListener('load', render);
   </script>
+
+  <script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>
